@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
+import Skills from "./components/Skills.jsx";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -10,6 +11,7 @@ function App() {
     <div className="relative min-h-screen text-gray-100">
       <Navbar />
       <Home />
+      <Skills />
       <Projects />
       <Contact />
       <Footer />
