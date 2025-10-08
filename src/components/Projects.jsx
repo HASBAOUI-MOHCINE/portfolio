@@ -10,7 +10,7 @@ const projects = [
     tags: ["HTML/CSS", "Bootstrap", "JavaScript"],
     demo: "https://mohcinephone.netlify.app",
     code: "https://github.com/HASBAOUI-MOHCINE/my-website",
-    image: "/src/images/mohcinephone.png", // Corrected image path
+    image: "/images/mohcinephone.png", // Corrected image path
   },
   {
     title: "Noortomark agency",
@@ -18,7 +18,7 @@ const projects = [
     tags: ["HTML/CSS/Bootstrap", "JavaScript"],
     demo: "https://noortomark.com",
     code: "https://github.com/HASBAOUI-MOHCINE/noortomark",
-    image: "/src/images/noortomark.png", // Corrected image path
+    image: "/images/noortomark.png", // Corrected image path
   },
   {
     title: "Moroccan Delicious Bites",
@@ -26,7 +26,7 @@ const projects = [
     tags: ["HTML/CSS"],
     demo: "https://delicious-bites-menu.netlify.app",
     code: "https://github.com/HASBAOUI-MOHCINE/first-project-html-css-sass",
-    image: "/src/images/delicious-bites.png", // Corrected image path
+    image: "/images/delicious-bites.png", // Corrected image path
   },
   {
     title: "Cineview",
@@ -34,7 +34,7 @@ const projects = [
     tags: ["HTML/CSS", "JavaScript"],
     demo: "https://hasbaoui-mohcine.github.io/ai-final-project/",
     code: "https://github.com/HASBAOUI-MOHCINE/ai-final-project",
-    image: "/src/images/cineview.png", // Corrected image path
+    image: "/images/cineview.png", // Corrected image path
   },
   {
     title: "My Portfolio Website",
@@ -42,7 +42,7 @@ const projects = [
     tags: ["React", "Tailwind CSS"],
     demo: "https://hasbaoui.uk",
     code: "https://github.com/HASBAOUI-MOHCINE/portfolio",
-    image: "/src/images/portfolio.png", // Corrected image path
+    image: "/images/portfolio.png", // Corrected image path
   },
   {
     title: "Trends for Men",
@@ -50,7 +50,7 @@ const projects = [
     tags: ["HTML/CSS/BOOTSTRAP", "JavaScript"],
     demo: "https://trends-for-men.netlify.app/",
     code: "https://github.com/HASBAOUI-MOHCINE/trends-for-men",
-    image: "/src/images/trends-for-men.png", // Corrected image path
+    image: "/images/trends-for-men.png", // Corrected image path
   },
 ];
 
