@@ -18,7 +18,7 @@ const projects = [
     tags: ["HTML/CSS/Bootstrap", "JavaScript"],
     demo: "https://noortomark.com",
     code: "https://github.com/HASBAOUI-MOHCINE/noortomark",
-    image: "/images/noortomark.png", // Corrected image path
+    image: "src/images/noortomark.png", // Corrected image path
   },
   {
     title: "Moroccan Delicious Bites",
