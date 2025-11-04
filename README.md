@@ -1,16 +1,115 @@
-# React + Vite
+# Mohcine Hasbaoui - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website showcasing my work as a professional web developer from Morocco.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visit the live site: [mohcinephone.netlify.app](https://mohcinephone.netlify.app)
 
-## React Compiler
+## 📋 Features
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Modern UI/UX**: Clean and professional design with smooth animations
+- **Responsive Design**: Fully responsive layout that works on all devices
+- **Interactive Components**: Dynamic navigation, project showcases, and contact form
+- **SEO Optimized**: Meta tags and semantic HTML for better search engine visibility
+- **Fast Performance**: Built with Vite for lightning-fast development and optimized production builds
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Framework**: React 19.1.1
+- **Build Tool**: Vite 7.1.9
+- **Styling**: Tailwind CSS 4.1.14
+- **Icons**: Font Awesome, React Icons, Heroicons
+- **UI Components**: Headless UI
+- **Code Quality**: ESLint
+
+## 📦 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/HASBAOUI-MOHCINE/portfolio.git
+cd portfolio
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and visit `http://localhost:5173`
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint to check code quality
+
+## 📁 Project Structure
+
+```
+portfolio/
+├── src/
+│   ├── components/
+│   │   ├── About.jsx
+│   │   ├── Background.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Home.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── Projects.jsx
+│   │   └── Skills.jsx
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+├── public/
+├── index.html
+├── package.json
+├── vite.config.js
+└── tailwind.config.js
+```
+
+## 🌟 Sections
+
+- **Home**: Introduction and welcome section
+- **Skills**: Technical skills and expertise
+- **Projects**: Portfolio of completed projects including:
+  - Mohcinephone - E-commerce platform
+  - Moroccan Delicious Bites - Restaurant website
+- **Contact**: Get in touch form and social links
+- **Footer**: Additional information and links
+
+## 🚀 Deployment
+
+This project is deployed on Netlify. To deploy your own version:
+
+1. Build the project:
+```bash
+npm run build
+```
+
+2. Deploy the `dist` folder to your hosting platform of choice (Netlify, Vercel, GitHub Pages, etc.)
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 👤 Author
+
+**Mohcine Hasbaoui**
+
+- GitHub: [@HASBAOUI-MOHCINE](https://github.com/HASBAOUI-MOHCINE)
+- Website: [mohcinephone.netlify.app](https://mohcinephone.netlify.app)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+---
+
+Made with ❤️ by Mohcine Hasbaoui

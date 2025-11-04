@@ -1,7 +1,23 @@
 {
-  "name": "my-app",
+  "name": "mohcine-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Professional portfolio website for Mohcine Hasbaoui - Web Developer",
+  "author": "Mohcine Hasbaoui <mohcine@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HASBAOUI-MOHCINE/portfolio.git"
+  },
+  "homepage": "https://mohcinephone.netlify.app",
+  "keywords": [
+    "portfolio",
+    "react",
+    "vite",
+    "tailwindcss",
+    "web-developer",
+    "mohcine-hasbaoui"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
