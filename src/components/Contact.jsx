@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faUser, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { useTheme, useTranslation } from "../context/ThemeContext";
 
 const Contact = () => {
+  const { isDark } = useTheme();
+  const t = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,29 +52,39 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="pt-24 pb-16 px-6">
-      <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-        Get In Touch
-      </h2>
-      <div className="max-w-xl mx-auto bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700/50 p-8">
-        <div className="text-center mb-4">
-          <FontAwesomeIcon icon={faWhatsapp} className="text-6xl text-green-500" />
+    <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 min-h-screen">
+      <div className="flex items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
+        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{t.contact.title}</h2>
+        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
+      </div>
+      <div className={`max-w-md sm:max-w-xl mx-auto rounded-xl sm:rounded-2xl p-5 sm:p-8 ${
+        isDark 
+          ? 'bg-gray-800/30 border border-gray-700/50' 
+          : 'bg-white/60 border border-gray-200 shadow-sm'
+      }`}>
+        <div className="text-center mb-3 sm:mb-4">
+          <FontAwesomeIcon icon={faWhatsapp} className={`text-4xl sm:text-5xl ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
         </div>
-        <h3 className="text-2xl font-semibold mb-4 text-center text-gray-100">Contact via WhatsApp</h3>
-        <p className="text-gray-400 mb-6 text-center">
-          Feel free to reach out for collaborations, job opportunities, or just to say hello!
+        <h3 className={`text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{t.contact.subtitle}</h3>
+        <p className={`mb-5 sm:mb-6 text-center text-xs sm:text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
+          {t.contact.description}
         </p>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-3 sm:space-y-4" onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
               name="name"
               pattern="[A-Za-z\s\-'.]+"
-              placeholder="Your Name *"
+              placeholder={t.contact.name}
               required
               maxLength={50}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-100 focus:outline-none focus:border-purple-500"
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+                isDark 
+                  ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
+                  : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
+              }`}
               onChange={handleChange}
               value={formData.name}
             />
@@ -81,10 +94,14 @@ const Contact = () => {
               type="email"
               name="email"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              placeholder="Your Email *"
+              placeholder={t.contact.email}
               required
               maxLength={100}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-100 focus:outline-none focus:border-purple-500"
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+                isDark 
+                  ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
+                  : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
+              }`}
               onChange={handleChange}
               value={formData.email}
             />
@@ -94,9 +111,13 @@ const Contact = () => {
               type="tel"
               name="phone"
               pattern="[0-9+\-\s]+"
-              placeholder="Your Phone Number (optional)"
+              placeholder={t.contact.phone}
               maxLength={20}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-100 focus:outline-none focus:border-purple-500"
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+                isDark 
+                  ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
+                  : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
+              }`}
               onChange={handleChange}
               value={formData.phone}
             />
@@ -104,32 +125,36 @@ const Contact = () => {
             <div>
               <textarea
                 name="message"
-                placeholder="Your Message (optional)"
+                placeholder={t.contact.message}
                 rows="4"
                 maxLength={500}
-                className="w-full px-4 py-2 rounded-lg bg-gray-700/50 border border-gray-600 text-gray-100 focus:outline-none focus:border-purple-500"
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors resize-none text-sm sm:text-base ${
+                  isDark 
+                    ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
+                    : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
+                }`}
                 onChange={handleChange}
                 value={formData.message}
               ></textarea>
             </div>
-          <div className="text-center mt-6">
+          <div className="text-center mt-4 sm:mt-6">
             <button
               type="submit"
-              className="inline-block bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition-all transform hover:-translate-y-1"
+              className="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
             >
-              <FontAwesomeIcon icon={faWhatsapp} className="mr-2" />
-              Start Chat
+              <FontAwesomeIcon icon={faWhatsapp} />
+              {t.contact.send}
             </button>
           </div>
         </form>
 
-        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-6 text-gray-400">
-          <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faUser} />
+        <div className={`mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 text-xs sm:text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon icon={faUser} className={isDark ? 'text-gray-600' : 'text-gray-400'} />
             <span>Mohcine Hasbaoui</span>
           </div>
-          <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faPhone} />
+          <div className="flex items-center justify-center gap-2">
+            <FontAwesomeIcon icon={faPhone} className={isDark ? 'text-gray-600' : 'text-gray-400'} />
             <span>+212 622 664410</span>
           </div>
         </div>

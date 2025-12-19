@@ -1,23 +1,32 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useTheme, useTranslation } from "../context/ThemeContext";
 
 const Home = () => {
+  const { isDark } = useTheme();
+  const t = useTranslation();
+
   return (
-    <section id="home" className="pt-24 min-h-screen flex flex-col justify-center items-center text-center px-6">
-      <h1 className="text-[clamp(3rem,8vw,6rem)] font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent mb-4">
-        Mohcine Hasbaoui
+    <section className="pt-20 sm:pt-24 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6">
+      <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4 ${
+        isDark ? 'text-white' : 'text-gray-900'
+      }`}>
+        {t.home.title} <span className="text-cyan-500">{t.home.titleHighlight}</span>
       </h1>
-      <p className="text-xxl md:text-3xl text-white mb-4 border-l-amber-400">Web Developer</p>
-      <p className="max-w-xl text-white mb-8">
-        Crafting beautiful, functional web experiences with modern technologies.
-        Passionate about clean code, user experience, and bringing ideas to life.
+      <p className={`text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 ${
+        isDark ? 'text-gray-300' : 'text-gray-600'
+      }`}>{t.home.subtitle}</p>
+      <p className={`max-w-md sm:max-w-xl text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed px-2 ${
+        isDark ? 'text-gray-400' : 'text-gray-500'
+      }`}>
+        {t.home.description}
       </p>
-      <a
-        href="#projects"
-        className="inline-block px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition-transform"
+      <Link
+        to="/projects"
+        className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-semibold rounded-lg shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
       >
-        View My Projects
-      </a>
-      
+        {t.home.cta}
+      </Link>
     </section>
   );
 };
