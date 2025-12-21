@@ -100,6 +100,8 @@ function AnimatedRoutes() {
         </Routes>
       </AnimatePresence>
     </>
+  );
+}
 
 function AppContent() {
   const { isDark } = useTheme();
