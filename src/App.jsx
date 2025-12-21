@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider, useTheme, useTranslation } from "./context/ThemeContext";
+import { lazy, Suspense, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import Skills from "./components/Skills.jsx";
-import Certifications from "./components/Certifications.jsx";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Background from "./components/Background";
 import PageTransition from "./components/PageTransition";
-import { useEffect } from "react";
+
+const Home = lazy(() => import("./components/Home"));
+const Skills = lazy(() => import("./components/Skills.jsx"));
+const Certifications = lazy(() => import("./components/Certifications.jsx"));
+const Projects = lazy(() => import("./components/Projects"));
+const Contact = lazy(() => import("./components/Contact"));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -71,33 +72,35 @@ function AnimatedRoutes() {
       </script>
 
       <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={
-            <PageTransition>
-              <Home />
-            </PageTransition>
-          } />
-          <Route path="/skills" element={
-            <PageTransition>
-              <Skills />
-            </PageTransition>
-          } />
-          <Route path="/certifications" element={
-            <PageTransition>
-              <Certifications />
-            </PageTransition>
-          } />
-          <Route path="/projects" element={
-            <PageTransition>
-              <Projects />
-            </PageTransition>
-          } />
-          <Route path="/contact" element={
-            <PageTransition>
-              <Contact />
-            </PageTransition>
-          } />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            } />
+            <Route path="/skills" element={
+              <PageTransition>
+                <Skills />
+              </PageTransition>
+            } />
+            <Route path="/certifications" element={
+              <PageTransition>
+                <Certifications />
+              </PageTransition>
+            } />
+            <Route path="/projects" element={
+              <PageTransition>
+                <Projects />
+              </PageTransition>
+            } />
+            <Route path="/contact" element={
+              <PageTransition>
+                <Contact />
+              </PageTransition>
+            } />
+          </Routes>
+        </Suspense>
       </AnimatePresence>
     </>
   );
@@ -128,4 +131,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 

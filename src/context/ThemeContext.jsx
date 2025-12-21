@@ -276,7 +276,8 @@ export const translations = {
   },
 };
 
+
 export const useTranslation = () => {
   const { lang } = useTheme();
   return translations[lang];
-};
+}
