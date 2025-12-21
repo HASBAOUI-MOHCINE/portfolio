@@ -46,6 +46,41 @@ const Projects = () => {
         <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{t.projects.title}</h2>
         <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
       </div>
+
+      {/* Structured Data for Projects */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Portfolio Projects",
+          "description": "Collection of web development projects by Mohcine Hasbaoui",
+          "author": {
+            "@type": "Person",
+            "name": "Mohcine Hasbaoui",
+            "url": "https://hasbaoui.uk"
+          },
+          "numberOfItems": projects.length,
+          "itemListElement": projects.map((project, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": project.title,
+              "description": project.description,
+              "url": project.demo,
+              "applicationCategory": "WebApplication",
+              "operatingSystem": "Web Browser",
+              "author": {
+                "@type": "Person",
+                "name": "Mohcine Hasbaoui"
+              },
+              "programmingLanguage": project.tags.join(", "),
+              "screenshot": `https://hasbaoui.uk${project.image}`
+            }
+          }))
+        })}
+      </script>
+
       <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
           <div
@@ -60,8 +95,9 @@ const Projects = () => {
             <div className="h-40 sm:h-48 md:h-52 overflow-hidden">
               <img
                 src={project.image}
-                alt={project.title}
+                alt={`Screenshot of ${project.title} - ${project.description}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading={i < 3 ? "eager" : "lazy"}
               />
             </div>
 

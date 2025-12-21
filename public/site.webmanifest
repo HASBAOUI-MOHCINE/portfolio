@@ -1,0 +1,29 @@
+{
+  "name": "Mohcine Hasbaoui - Full Stack Web Developer",
+  "short_name": "Mohcine Portfolio",
+  "description": "Professional Full Stack Web Developer portfolio featuring modern web solutions and projects",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#06b6d4",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "web-development"],
+  "screenshots": [
+    {
+      "src": "/images/portfolio-screenshot.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
