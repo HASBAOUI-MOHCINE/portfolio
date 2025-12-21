@@ -62,22 +62,22 @@ const Skills = () => {
             <h3 className="text-lg sm:text-xl font-semibold text-cyan-500 mb-4 sm:mb-6">
               {t.skills.categories[category] || category}
             </h3>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
               {skillsInCategory.map((s) => (
                 <div 
                   key={s.name} 
-                  className={`flex flex-col items-center justify-center p-2 sm:p-4 rounded-lg sm:rounded-xl transition-colors duration-300 group ${
+                  className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg sm:rounded-xl transition-colors duration-300 group min-h-[80px] sm:min-h-[100px] ${
                     isDark 
                       ? 'bg-gray-900/50 hover:bg-gray-800/50' 
                       : 'bg-gray-50 hover:bg-gray-100'
                   }`}
                 >
-                  <div className={`text-xl sm:text-2xl md:text-3xl group-hover:text-cyan-500 transition-colors duration-300 mb-1 sm:mb-2 ${
+                  <div className={`text-2xl sm:text-3xl md:text-4xl group-hover:text-cyan-500 transition-colors duration-300 mb-2 sm:mb-3 flex items-center justify-center ${
                     isDark ? 'text-gray-400' : 'text-gray-500'
                   }`}>
                     {s.icon}
                   </div>
-                  <p className={`text-[10px] sm:text-xs font-medium transition-colors text-center ${
+                  <p className={`text-xs sm:text-sm font-medium transition-colors text-center leading-tight ${
                     isDark ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-500 group-hover:text-gray-700'
                   }`}>{s.name}</p>
                 </div>
