@@ -148,6 +148,7 @@ export const translations = {
       phone: 'Your Phone Number (optional)',
       message: 'Your Message (optional)',
       send: 'Start Chat',
+      sendEmail: 'Send Email',
     },
     footer: {
       connect: "Let's connect and create something amazing together",
@@ -266,6 +267,7 @@ export const translations = {
       phone: 'Votre Téléphone (optionnel)',
       message: 'Votre Message (optionnel)',
       send: 'Démarrer Chat',
+      sendEmail: 'Envoyer Email',
     },
     footer: {
       connect: 'Connectons-nous et créons quelque chose d\'incroyable ensemble',

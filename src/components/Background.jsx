@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const Background = () => {
@@ -6,16 +6,29 @@ const Background = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
 
+  const updateMousePosition = useCallback((e) => {
+    setMousePosition({
+      x: (e.clientX / window.innerWidth - 0.5) * 30,
+      y: (e.clientY / window.innerHeight - 0.5) * 30,
+    });
+  }, []);
+
+  const updateScrollY = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   useEffect(() => {
+    let mouseAnimationFrame;
+    let scrollAnimationFrame;
+
     const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 30,
-        y: (e.clientY / window.innerHeight - 0.5) * 30,
-      });
+      if (mouseAnimationFrame) cancelAnimationFrame(mouseAnimationFrame);
+      mouseAnimationFrame = requestAnimationFrame(() => updateMousePosition(e));
     };
 
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      if (scrollAnimationFrame) cancelAnimationFrame(scrollAnimationFrame);
+      scrollAnimationFrame = requestAnimationFrame(updateScrollY);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -23,27 +36,29 @@ const Background = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
+      if (mouseAnimationFrame) cancelAnimationFrame(mouseAnimationFrame);
+      if (scrollAnimationFrame) cancelAnimationFrame(scrollAnimationFrame);
     };
-  }, []);
+  }, [updateMousePosition, updateScrollY]);
 
   return (
     <>
       {/* Dynamic Animated Background */}
       <div className={`fixed inset-0 -z-20 transition-all duration-2000 ${
         isDark
-          ? 'bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950'
-          : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-br from-white via-gray-50 to-white'
       }`}>
         {/* Animated gradient waves */}
         <div className={`absolute inset-0 transition-all duration-3000 ${
           isDark
             ? 'bg-gradient-to-r from-cyan-900/10 via-transparent to-purple-900/10'
-            : 'bg-gradient-to-r from-cyan-100/20 via-transparent to-blue-100/20'
+            : 'bg-gradient-to-r from-cyan-50/10 via-transparent to-blue-50/10'
         } animate-gradient-x`}></div>
         <div className={`absolute inset-0 transition-all duration-4000 ${
           isDark
             ? 'bg-gradient-to-l from-blue-900/8 via-transparent to-green-900/8'
-            : 'bg-gradient-to-l from-blue-100/15 via-transparent to-green-100/15'
+            : 'bg-gradient-to-l from-blue-50/8 via-transparent to-green-50/8'
         } animate-gradient-y`}></div>
       </div>
 
@@ -84,7 +99,7 @@ const Background = () => {
         {/* Floating geometric crystals */}
         <div
           className={`absolute top-1/3 right-1/3 w-40 h-40 transition-all duration-2000 ${
-            isDark ? 'bg-cyan-400/20' : 'bg-cyan-500/30'
+            isDark ? 'bg-cyan-400/15' : 'bg-cyan-500/25'
           } clip-path-hexagon`}
           style={{
             transform: `translate(${mousePosition.x * 0.8}px, ${mousePosition.y * 0.8}px) rotate(${scrollY * 0.1}deg)`,
@@ -94,7 +109,7 @@ const Background = () => {
 
         <div
           className={`absolute bottom-1/3 left-1/3 w-32 h-32 transition-all duration-2000 ${
-            isDark ? 'bg-purple-400/18' : 'bg-purple-500/25'
+            isDark ? 'bg-purple-400/12' : 'bg-purple-500/20'
           } clip-path-triangle`}
           style={{
             transform: `translate(${mousePosition.x * -0.7}px, ${mousePosition.y * -0.7}px) rotate(${scrollY * -0.08}deg)`,
@@ -104,15 +119,15 @@ const Background = () => {
 
         {/* Animated particle system */}
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <div
               key={i}
               className={`absolute w-1 h-1 rounded-full transition-all duration-1000 ${
                 isDark ? 'bg-cyan-400/40' : 'bg-cyan-500/50'
               }`}
               style={{
-                left: `${10 + (i * 6.5)}%`,
-                top: `${15 + (i * 5.8)}%`,
+                left: `${10 + (i * 8)}%`,
+                top: `${15 + (i * 7)}%`,
                 animation: `particle-float ${10 + i * 1.5}s ease-in-out infinite, particle-glow ${4 + i * 0.8}s ease-in-out infinite`,
                 animationDelay: `${i * 0.3}s`
               }}
@@ -123,7 +138,7 @@ const Background = () => {
         {/* Flowing energy streams */}
         <div
           className={`absolute top-0 left-1/4 w-1 h-full transition-all duration-3000 ${
-            isDark ? 'bg-gradient-to-b from-cyan-400/30 to-transparent' : 'bg-gradient-to-b from-cyan-500/40 to-transparent'
+            isDark ? 'bg-gradient-to-b from-cyan-400/20 to-transparent' : 'bg-gradient-to-b from-cyan-500/30 to-transparent'
           }`}
           style={{
             transform: `translateX(${mousePosition.x * 0.2}px)`,
@@ -133,7 +148,7 @@ const Background = () => {
 
         <div
           className={`absolute top-0 right-1/3 w-1 h-full transition-all duration-3000 ${
-            isDark ? 'bg-gradient-to-b from-purple-400/25 to-transparent' : 'bg-gradient-to-b from-purple-500/35 to-transparent'
+            isDark ? 'bg-gradient-to-b from-purple-400/15 to-transparent' : 'bg-gradient-to-b from-purple-500/25 to-transparent'
           }`}
           style={{
             transform: `translateX(${mousePosition.x * -0.15}px)`,
@@ -144,17 +159,16 @@ const Background = () => {
 
       {/* Animated mesh/grid overlay */}
       <div className={`fixed inset-0 -z-5 transition-all duration-2000 ${
-        isDark ? 'opacity-8' : 'opacity-12'
+        isDark ? 'opacity-6' : 'opacity-8'
       }`}>
         <div
           className={`absolute inset-0 transition-all duration-3000 ${
             isDark
-              ? 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.05)_1px,transparent_1px)]'
-              : 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.08)_1px,transparent_1px)]'
+              ? 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.03)_1px,transparent_1px)]'
+              : 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.05)_1px,transparent_1px)]'
           }`}
           style={{
-            backgroundSize: `${50 + scrollY * 0.02}px ${50 + scrollY * 0.02}px`,
-            animation: 'grid-shift 20s ease-in-out infinite'
+            backgroundSize: '50px 50px'
           }}
         ></div>
       </div>

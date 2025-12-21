@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faUser, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useTheme, useTranslation } from "../context/ThemeContext";
 
 const Contact = () => {
@@ -42,6 +42,12 @@ const Contact = () => {
     return `${baseUrl}?text=${encodeURIComponent(message)}`;
   };
 
+  const generateEmailLink = () => {
+    const subject = `Contact from ${formData.name}`;
+    const body = `Hello Mohcine!\n\nI'm ${formData.name}.${formData.email ? ` My email is ${formData.email}.` : ""}${formData.phone ? ` My phone number is ${formData.phone}.` : ""}${formData.message ? `\n\nMessage:\n${formData.message}` : ""}`;
+    return `mailto:mohcinehasbaoui12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email) {
@@ -49,6 +55,15 @@ const Contact = () => {
       return;
     }
     window.open(generateWhatsAppLink(), '_blank');
+  };
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    window.open(generateEmailLink(), '_blank');
   };
 
   return (
@@ -137,13 +152,21 @@ const Contact = () => {
                 value={formData.message}
               ></textarea>
             </div>
-          <div className="text-center mt-4 sm:mt-6">
+          <div className="text-center mt-4 sm:mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
             >
               <FontAwesomeIcon icon={faWhatsapp} />
               {t.contact.send}
+            </button>
+            <button
+              type="button"
+              onClick={handleEmailSubmit}
+              className="inline-flex items-center justify-center gap-2 bg-gray-600 hover:bg-gray-500 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/25 text-sm sm:text-base"
+            >
+              <FontAwesomeIcon icon={faEnvelope} />
+              {t.contact.sendEmail}
             </button>
           </div>
         </form>
