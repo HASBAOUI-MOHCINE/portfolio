@@ -59,7 +59,7 @@ const Certifications = () => {
             }`}
             style={{ animation: visible ? `fadeIn .6s ${(i * 100)}ms ease-out both` : 'none' }}
           >
-            <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg sm:rounded-xl group-hover:text-cyan-500 transition-colors ${
+            <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg sm:rounded-xl group-hover:text-purple-500 transition-colors ${
               isDark ? 'bg-gray-900/50 text-gray-400' : 'bg-gray-100 text-gray-500'
             }`}>
               <div className="text-xl sm:text-2xl">{edu.icon}</div>
@@ -93,13 +93,13 @@ const Certifications = () => {
             }`}
             style={{ animation: visible ? `fadeIn .6s ${(i * 100 + 200)}ms ease-out both` : 'none' }}
           >
-            <div className={`mb-4 sm:mb-6 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl sm:rounded-2xl group-hover:text-cyan-500 transition-colors ${
+            <div className={`mb-4 sm:mb-6 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl sm:rounded-2xl group-hover:text-purple-500 transition-colors ${
               isDark ? 'bg-gray-900/50 text-gray-400' : 'bg-gray-100 text-gray-500'
             }`}>
               <div className="text-xl sm:text-2xl">{cert.icon}</div>
             </div>
             <h3 className={`text-lg sm:text-xl font-semibold mb-2 sm:mb-3 leading-tight ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{cert.name}</h3>
-            <p className="text-sm sm:text-base text-cyan-500 font-medium mb-2">{cert.issuer}</p>
+            <p className="text-sm sm:text-base text-purple-500 font-medium mb-2">{cert.issuer}</p>
             <p className={`text-xs sm:text-sm mt-auto ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>{cert.date}</p>
           </div>
         ))}

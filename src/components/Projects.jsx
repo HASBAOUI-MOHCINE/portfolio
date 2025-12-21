@@ -35,7 +35,7 @@ const Projects = () => {
       '/images/cineview.png',
       '/images/portfolio.png',
       '/images/trends-for-men.png',
-      '/images/morolium.png',
+      '/images/portfolio.png',
     ][index],
   }));
 
@@ -127,7 +127,7 @@ const Projects = () => {
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`hover:text-cyan-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                  className={`hover:text-purple-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
                 >
                   <FontAwesomeIcon icon={faExternalLinkAlt} className="w-3 h-3 sm:w-4 sm:h-4" />
                   {t.projects.demo}
@@ -137,7 +137,7 @@ const Projects = () => {
                     href={project.code}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`hover:text-cyan-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                    className={`hover:text-purple-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
                   >
                     <FontAwesomeIcon icon={faGithub} className="w-3 h-3 sm:w-4 sm:h-4" />
                     {t.projects.code}

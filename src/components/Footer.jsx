@@ -31,8 +31,8 @@ const Footer = () => {
             rel="noopener noreferrer"
             className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-300 ${
               isDark 
-                ? 'bg-gray-800/50 border border-gray-700/50 text-gray-500 hover:text-cyan-400 hover:border-gray-600/50' 
-                : 'bg-gray-100 border border-gray-200 text-gray-500 hover:text-cyan-500 hover:border-gray-300'
+                ? 'bg-gray-800/50 border border-gray-700/50 text-gray-500 hover:text-purple-400 hover:border-gray-600/50' 
+                : 'bg-gray-100 border border-gray-200 text-gray-500 hover:text-purple-500 hover:border-gray-300'
             }`}
           >
             <FontAwesomeIcon icon={social.icon} className="text-base sm:text-lg" />

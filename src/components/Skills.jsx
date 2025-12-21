@@ -59,7 +59,7 @@ const Skills = () => {
             }`}
             style={{ animation: visible ? `fadeIn .6s ${(index * 100)}ms ease-out both` : 'none' }}
           >
-            <h3 className="text-lg sm:text-xl font-semibold text-cyan-500 mb-4 sm:mb-6">
+            <h3 className="text-lg sm:text-xl font-semibold text-purple-500 mb-4 sm:mb-6">
               {t.skills.categories[category] || category}
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -72,7 +72,7 @@ const Skills = () => {
                       : 'bg-gray-50 hover:bg-gray-100'
                   }`}
                 >
-                  <div className={`text-2xl sm:text-3xl md:text-4xl group-hover:text-cyan-500 transition-colors duration-300 mb-2 sm:mb-3 flex items-center justify-center ${
+                  <div className={`text-2xl sm:text-3xl md:text-4xl group-hover:text-purple-500 transition-colors duration-300 mb-2 sm:mb-3 flex items-center justify-center ${
                     isDark ? 'text-gray-400' : 'text-gray-500'
                   }`}>
                     {s.icon}

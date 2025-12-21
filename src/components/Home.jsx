@@ -11,7 +11,7 @@ const Home = () => {
       <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4 ${
         isDark ? 'text-white' : 'text-gray-900'
       }`}>
-        {t.home.title} <span className="text-cyan-500">{t.home.titleHighlight}</span>
+        {t.home.title} <span className="text-purple-500">{t.home.titleHighlight}</span>
       </h1>
       <p className={`text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 ${
         isDark ? 'text-gray-300' : 'text-gray-600'
@@ -23,7 +23,7 @@ const Home = () => {
       </p>
       <Link
         to="/projects"
-        className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-semibold rounded-lg shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+        className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-purple-500 hover:bg-purple-400 text-gray-900 font-semibold rounded-lg shadow-lg shadow-purple-500/25 hover:shadow-purple-400/40 hover:scale-105 transition-all duration-300 text-sm sm:text-base"
       >
         {t.home.cta}
       </Link>

@@ -95,7 +95,7 @@ const Contact = () => {
               placeholder={t.contact.name}
               required
               maxLength={50}
-              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-purple-500/50 transition-colors text-sm sm:text-base ${
                 isDark 
                   ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
                   : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
@@ -112,7 +112,7 @@ const Contact = () => {
               placeholder={t.contact.email}
               required
               maxLength={100}
-              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-purple-500/50 transition-colors text-sm sm:text-base ${
                 isDark 
                   ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
                   : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
@@ -128,7 +128,7 @@ const Contact = () => {
               pattern="[0-9+\-\s]+"
               placeholder={t.contact.phone}
               maxLength={20}
-              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors text-sm sm:text-base ${
+              className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-purple-500/50 transition-colors text-sm sm:text-base ${
                 isDark 
                   ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
                   : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
@@ -143,7 +143,7 @@ const Contact = () => {
                 placeholder={t.contact.message}
                 rows="4"
                 maxLength={500}
-                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-cyan-500/50 transition-colors resize-none text-sm sm:text-base ${
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl focus:outline-none focus:border-purple-500/50 transition-colors resize-none text-sm sm:text-base ${
                   isDark 
                     ? 'bg-gray-900/50 border border-gray-700/50 text-gray-200 placeholder-gray-500' 
                     : 'bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400'
@@ -155,7 +155,7 @@ const Contact = () => {
           <div className="text-center mt-4 sm:mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-400 text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 text-sm sm:text-base"
             >
               <FontAwesomeIcon icon={faWhatsapp} />
               {t.contact.send}

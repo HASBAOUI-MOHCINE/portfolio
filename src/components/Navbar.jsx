@@ -27,7 +27,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
         <Link
           to="/"
-          className="text-lg sm:text-xl md:text-2xl font-bold text-cyan-500 hover:text-cyan-400 transition-colors duration-300"
+          className="text-lg sm:text-xl md:text-2xl font-bold text-purple-500 hover:text-purple-400 transition-colors duration-300"
         >
           MOHCINE DEV
         </Link>
@@ -40,12 +40,12 @@ const Navbar = () => {
                 to="/"
                 className={`relative tracking-wide transition-colors duration-300 group ${
                   location.pathname === '/' 
-                    ? 'text-cyan-500' 
+                    ? 'text-purple-500' 
                     : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {t.nav.home}
-                <span className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-500 rounded-full transition-all duration-300 ${
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 rounded-full transition-all duration-300 ${
                   location.pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -55,12 +55,12 @@ const Navbar = () => {
                 to="/skills"
                 className={`relative tracking-wide transition-colors duration-300 group ${
                   location.pathname === '/skills' 
-                    ? 'text-cyan-500' 
+                    ? 'text-purple-500' 
                     : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {t.nav.skills}
-                <span className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-500 rounded-full transition-all duration-300 ${
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 rounded-full transition-all duration-300 ${
                   location.pathname === '/skills' ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -70,12 +70,12 @@ const Navbar = () => {
                 to="/certifications"
                 className={`relative tracking-wide transition-colors duration-300 group ${
                   location.pathname === '/certifications' 
-                    ? 'text-cyan-500' 
+                    ? 'text-purple-500' 
                     : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {t.nav.certifications}
-                <span className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-500 rounded-full transition-all duration-300 ${
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 rounded-full transition-all duration-300 ${
                   location.pathname === '/certifications' ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -85,12 +85,12 @@ const Navbar = () => {
                 to="/projects"
                 className={`relative tracking-wide transition-colors duration-300 group ${
                   location.pathname === '/projects' 
-                    ? 'text-cyan-500' 
+                    ? 'text-purple-500' 
                     : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {t.nav.projects}
-                <span className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-500 rounded-full transition-all duration-300 ${
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 rounded-full transition-all duration-300 ${
                   location.pathname === '/projects' ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -100,12 +100,12 @@ const Navbar = () => {
                 to="/contact"
                 className={`relative tracking-wide transition-colors duration-300 group ${
                   location.pathname === '/contact' 
-                    ? 'text-cyan-500' 
+                    ? 'text-purple-500' 
                     : isDark ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 {t.nav.contact}
-                <span className={`absolute left-0 -bottom-1 h-[2px] bg-cyan-500 rounded-full transition-all duration-300 ${
+                <span className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 rounded-full transition-all duration-300 ${
                   location.pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'
                 }`}></span>
               </Link>
@@ -119,8 +119,8 @@ const Navbar = () => {
               onClick={toggleLang}
               className={`px-2.5 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all duration-300 ${
                 isDark 
-                  ? 'bg-gray-800/60 text-gray-300 hover:text-cyan-400 hover:bg-gray-800' 
-                  : 'bg-gray-100 text-gray-600 hover:text-cyan-600 hover:bg-gray-200'
+                  ? 'bg-gray-800/60 text-gray-300 hover:text-purple-400 hover:bg-gray-800' 
+                  : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
               }`}
             >
               {lang === 'fr' ? 'FR' : 'EN'}
@@ -132,7 +132,7 @@ const Navbar = () => {
               className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 ${
                 isDark 
                   ? 'bg-gray-800/60 text-gray-300 hover:text-yellow-400 hover:bg-gray-800' 
-                  : 'bg-gray-100 text-gray-600 hover:text-cyan-600 hover:bg-gray-200'
+                  : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
               }`}
             >
               {isDark ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
@@ -147,8 +147,8 @@ const Navbar = () => {
             onClick={toggleLang}
             className={`px-2 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all duration-300 ${
               isDark 
-                ? 'bg-gray-800/60 text-gray-300 hover:text-cyan-400' 
-                : 'bg-gray-100 text-gray-600 hover:text-cyan-600'
+                ? 'bg-gray-800/60 text-gray-300 hover:text-purple-400' 
+                : 'bg-gray-100 text-gray-600 hover:text-purple-600'
             }`}
           >
             {lang === 'en' ? 'EN' : 'EN'}
@@ -160,7 +160,7 @@ const Navbar = () => {
             className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-300 ${
               isDark 
                 ? 'bg-gray-800/60 text-gray-300 hover:text-yellow-400' 
-                : 'bg-gray-100 text-gray-600 hover:text-cyan-600'
+                : 'bg-gray-100 text-gray-600 hover:text-purple-600'
             }`}
           >
             {isDark ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
@@ -177,9 +177,9 @@ const Navbar = () => {
             }`}
           >
             <div className="flex flex-col items-center justify-center gap-[3px]">
-              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-cyan-400' : 'bg-cyan-600'} ${open ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
-              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-cyan-400' : 'bg-cyan-600'} ${open ? 'opacity-0 scale-0' : ''}`}></span>
-              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-cyan-400' : 'bg-cyan-600'} ${open ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
+              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-purple-400' : 'bg-purple-600'} ${open ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
+              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-purple-400' : 'bg-purple-600'} ${open ? 'opacity-0 scale-0' : ''}`}></span>
+              <span className={`block w-4 h-0.5 rounded-full transition-all duration-300 ${isDark ? 'bg-purple-400' : 'bg-purple-600'} ${open ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
             </div>
           </button>
         </div>
@@ -196,7 +196,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className={`block font-medium tracking-wide py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 text-sm sm:text-base ${
                 location.pathname === '/' 
-                  ? 'bg-cyan-500/10 text-cyan-500' 
+                  ? 'bg-purple-500/10 text-purple-500' 
                   : isDark 
                     ? 'text-gray-300 hover:text-white hover:bg-gray-800/50' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -211,7 +211,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className={`block font-medium tracking-wide py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 text-sm sm:text-base ${
                 location.pathname === '/skills' 
-                  ? 'bg-cyan-500/10 text-cyan-500' 
+                  ? 'bg-purple-500/10 text-purple-500' 
                   : isDark 
                     ? 'text-gray-300 hover:text-white hover:bg-gray-800/50' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -226,7 +226,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className={`block font-medium tracking-wide py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 text-sm sm:text-base ${
                 location.pathname === '/certifications' 
-                  ? 'bg-cyan-500/10 text-cyan-500' 
+                  ? 'bg-purple-500/10 text-purple-500' 
                   : isDark 
                     ? 'text-gray-300 hover:text-white hover:bg-gray-800/50' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -241,7 +241,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className={`block font-medium tracking-wide py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 text-sm sm:text-base ${
                 location.pathname === '/projects' 
-                  ? 'bg-cyan-500/10 text-cyan-500' 
+                  ? 'bg-purple-500/10 text-purple-500' 
                   : isDark 
                     ? 'text-gray-300 hover:text-white hover:bg-gray-800/50' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -256,7 +256,7 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className={`block font-medium tracking-wide py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 text-sm sm:text-base ${
                 location.pathname === '/contact' 
-                  ? 'bg-cyan-500/10 text-cyan-500' 
+                  ? 'bg-purple-500/10 text-purple-500' 
                   : isDark 
                     ? 'text-gray-300 hover:text-white hover:bg-gray-800/50' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'

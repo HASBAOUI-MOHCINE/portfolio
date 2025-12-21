@@ -70,8 +70,8 @@ const Background = () => {
             {/* Animated gradient waves - desktop only */}
             <div className={`absolute inset-0 transition-all duration-3000 ${
               isDark
-                ? 'bg-gradient-to-r from-cyan-900/10 via-transparent to-purple-900/10'
-                : 'bg-gradient-to-r from-cyan-50/10 via-transparent to-blue-50/10'
+                ? 'bg-gradient-to-r from-purple-900/10 via-transparent to-purple-900/10'
+                : 'bg-gradient-to-r from-purple-50/10 via-transparent to-blue-50/10'
             } animate-gradient-x`}></div>
             <div className={`absolute inset-0 transition-all duration-4000 ${
               isDark
@@ -88,7 +88,7 @@ const Background = () => {
           {/* Large morphing orbs - reduced size and complexity */}
           <div
             className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] transition-all duration-[8000ms] ease-in-out ${
-              isDark ? 'bg-gradient-to-r from-cyan-500/8 to-blue-500/5' : 'bg-gradient-to-r from-cyan-400/15 to-blue-400/10'
+              isDark ? 'bg-gradient-to-r from-purple-500/8 to-blue-500/5' : 'bg-gradient-to-r from-purple-400/15 to-blue-400/10'
             }`}
             style={{
               transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px) translateY(${scrollY * 0.05}px)`,
@@ -112,7 +112,7 @@ const Background = () => {
               <div
                 key={i}
                 className={`absolute w-1 h-1 rounded-full transition-all duration-1000 ${
-                  isDark ? 'bg-cyan-400/30' : 'bg-cyan-500/40'
+                  isDark ? 'bg-purple-400/30' : 'bg-purple-500/40'
                 }`}
                 style={{
                   left: `${15 + (i * 12)}%`,
@@ -133,8 +133,8 @@ const Background = () => {
         <div
           className={`absolute inset-0 transition-all duration-3000 ${
             isDark
-              ? 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.02)_1px,transparent_1px)]'
-              : 'bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.03)_1px,transparent_1px)]'
+              ? 'bg-[radial-gradient(circle_at_50%_50%,rgba(128,0,128,0.02)_1px,transparent_1px)]'
+              : 'bg-[radial-gradient(circle_at_50%_50%,rgba(128,0,128,0.03)_1px,transparent_1px)]'
           }`}
           style={{
             backgroundSize: '60px 60px'
