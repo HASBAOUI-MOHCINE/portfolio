@@ -1,6 +1,50 @@
 @import "tailwindcss";
 
-
 html {
   scroll-behavior: smooth;
+}
+
+/* Performance optimizations */
+* {
+  /* Enable hardware acceleration for better performance */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+}
+
+/* Optimize animations for mobile */
+@media (max-width: 768px) {
+  * {
+    /* Reduce motion for mobile devices */
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Disable hover effects on touch devices */
+  .hover\:scale-105:hover {
+    transform: none !important;
+  }
+}
+
+/* Optimize image loading */
+img {
+  /* Prevent layout shift */
+  aspect-ratio: auto;
+}
+
+/* Reduce paint on mobile */
+@media (max-width: 768px) {
+  .blur-\[200px\] {
+    filter: blur(50px);
+  }
+
+  .blur-\[180px\] {
+    filter: blur(40px);
+  }
+
+  .blur-\[100px\] {
+    filter: blur(20px);
+  }
 }
