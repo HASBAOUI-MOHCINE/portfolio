@@ -114,7 +114,7 @@ portfolio/
 ## 📞 Contact
 
 **Mohcine Hasbaoui**
-- **Email**: mohcinehasbaoui@gmail.com
+- **Email**: hasbaouimohcin12@gmail.com
 - **WhatsApp**: +212 622 664410
 - **LinkedIn**: [Mohcine Hasbaoui](https://www.linkedin.com/in/mohcine-hasbaoui)
 - **GitHub**: [HASBAOUI-MOHCINE](https://github.com/HASBAOUI-MOHCINE)

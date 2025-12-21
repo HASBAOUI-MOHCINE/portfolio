@@ -45,7 +45,7 @@ const Contact = () => {
   const generateEmailLink = () => {
     const subject = `Contact from ${formData.name}`;
     const body = `Hello Mohcine!\n\nI'm ${formData.name}.${formData.email ? ` My email is ${formData.email}.` : ""}${formData.phone ? ` My phone number is ${formData.phone}.` : ""}${formData.message ? `\n\nMessage:\n${formData.message}` : ""}`;
-    return `mailto:mohcinehasbaoui12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return `mailto:hasbaouimohcin12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   const handleSubmit = (e) => {
