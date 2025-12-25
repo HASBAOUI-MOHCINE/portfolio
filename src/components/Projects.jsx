@@ -8,36 +8,64 @@ const Projects = () => {
   const { isDark } = useTheme();
   const t = useTranslation();
 
-  const projects = t.projects.items.map((project, index) => ({
-    ...project,
-    demo: [
-      'https://mohcinephone.netlify.app',
-      'https://noortomark.com',
-      'https://delicious-bites-menu.netlify.app',
-      'https://hasbaoui-mohcine.github.io/ai-final-project/',
-      'https://hasbaoui.uk',
-      'https://trends-for-men.netlify.app/',
-      'https://morolium.tech/',
-    ][index],
-    code: [
-      'https://github.com/HASBAOUI-MOHCINE/my-website',
-      'https://github.com/HASBAOUI-MOHCINE/noortomark',
-      'https://github.com/HASBAOUI-MOHCINE/first-project-html-css-sass',
-      'https://github.com/HASBAOUI-MOHCINE/ai-final-project',
-      'https://github.com/HASBAOUI-MOHCINE/portfolio',
-      'https://github.com/HASBAOUI-MOHCINE/trends-for-men',
-      null,
-    ][index],
-    image: [
-      '/images/mohcinephone.png',
-      '/images/noortomark.png',
-      '/images/delicious-bites.png',
-      '/images/cineview.png',
-      '/images/portfolio.png',
-      '/images/trends-for-men.png',
-      '/images/portfolio.png',
-    ][index],
-  }));
+  const projects = [
+    {
+      title: "Mohcine Phone",
+      description: "A responsive mobile phone e-commerce website",
+      tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+      demo: 'https://mohcinephone.netlify.app',
+      code: 'https://github.com/HASBAOUI-MOHCINE/my-website',
+      image: '/images/mohcinephone.png',
+    },
+    {
+      title: "Noortomark",
+      description: "A professional bookmark management application",
+      tags: ["React", "JavaScript", "Tailwind CSS", "Web App"],
+      demo: 'https://noortomark.com',
+      code: 'https://github.com/HASBAOUI-MOHCINE/noortomark',
+      image: '/images/noortomark.png',
+    },
+    {
+      title: "Delicious Bites",
+      description: "A restaurant menu showcasing app with smooth animations",
+      tags: ["HTML", "CSS", "JavaScript", "Design"],
+      demo: 'https://delicious-bites-menu.netlify.app',
+      code: 'https://github.com/HASBAOUI-MOHCINE/first-project-html-css-sass',
+      image: '/images/delicious-bites.png',
+    },
+    {
+      title: "CineView",
+      description: "An AI-powered movie recommendation platform",
+      tags: ["AI", "Machine Learning", "Python", "Web"],
+      demo: 'https://hasbaoui-mohcine.github.io/ai-final-project/',
+      code: 'https://github.com/HASBAOUI-MOHCINE/ai-final-project',
+      image: '/images/cineview.png',
+    },
+    {
+      title: "Portfolio",
+      description: "My personal portfolio website showcasing all projects",
+      tags: ["React", "Tailwind CSS", "Vite", "Responsive"],
+      demo: 'https://hasbaoui.uk',
+      code: 'https://github.com/HASBAOUI-MOHCINE/portfolio',
+      image: '/images/portfolio.png',
+    },
+    {
+      title: "Trends For Men",
+      description: "A men's fashion and lifestyle e-commerce platform",
+      tags: ["React", "E-commerce", "Tailwind CSS", "JavaScript"],
+      demo: 'https://trends-for-men.netlify.app/',
+      code: 'https://github.com/HASBAOUI-MOHCINE/trends-for-men',
+      image: '/images/trends-for-men.png',
+    },
+    {
+      title: "NoorToLearn",
+      description: "An online learning platform for educational content",
+      tags: ["MERN STACK", "Education", "Web App", "Responsive"],
+      demo: 'https://noortolearn.com/',
+      code: null,
+      image: '/images/noortolearn.png',
+    },
+  ];
 
   return (
     <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
@@ -91,15 +119,20 @@ const Projects = () => {
                 : 'bg-white/60 border border-gray-200 hover:border-gray-300 shadow-sm'
             }`}
           >
-            {/* Project Image */}
-            <div className="h-40 sm:h-48 md:h-52 overflow-hidden">
+            {/* Project Image - Clickable */}
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-40 sm:h-48 md:h-52 overflow-hidden block cursor-pointer"
+            >
               <img
                 src={project.image}
-                alt={`Screenshot of ${project.title} - ${project.description}`}
+                alt={`Screenshot of ${project.title}`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 loading={i < 3 ? "eager" : "lazy"}
               />
-            </div>
+            </a>
 
             {/* Project Details */}
             <div className="p-4 sm:p-6 flex flex-col flex-grow">
@@ -123,15 +156,6 @@ const Projects = () => {
                 )}
               </div>
               <div className="flex gap-4 sm:gap-6 mt-auto">
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`hover:text-purple-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
-                >
-                  <FontAwesomeIcon icon={faExternalLinkAlt} className="w-3 h-3 sm:w-4 sm:h-4" />
-                  {t.projects.demo}
-                </a>
                 {project.code && (
                   <a
                     href={project.code}
