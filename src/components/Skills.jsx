@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SiJavascript, SiReact, SiTailwindcss, SiVite, SiNextdotjs, SiTypescript, SiNodedotjs, SiExpress, SiMongodb, SiSupabase, SiPython, SiRedux } from 'react-icons/si';
+import { SiJavascript, SiReact, SiTailwindcss, SiVite, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiSupabase, SiPhp, SiLaravel } from 'react-icons/si';
 import { FaHtml5, FaCss3Alt, FaGitAlt, FaGithub } from 'react-icons/fa';
 import { useTheme, useTranslation } from '../context/ThemeContext';
 
@@ -7,17 +7,16 @@ const skills = [
   { name: 'HTML', icon: <FaHtml5 />, category: 'Frontend' },
   { name: 'CSS', icon: <FaCss3Alt />, category: 'Frontend' },
   { name: 'JavaScript', icon: <SiJavascript />, category: 'Frontend' },
-  { name: 'TypeScript', icon: <SiTypescript />, category: 'Frontend' },
   { name: 'React', icon: <SiReact />, category: 'Frontend' },
-  { name: 'Redux', icon: <SiRedux />, category: 'Frontend' },
   { name: 'Tailwind CSS', icon: <SiTailwindcss />, category: 'Frontend' },
   { name: 'Vite', icon: <SiVite />, category: 'Frontend' },
   { name: 'Next.js', icon: <SiNextdotjs />, category: 'Frontend' },
   { name: 'Node.js', icon: <SiNodedotjs />, category: 'Backend' },
   { name: 'Express.js', icon: <SiExpress />, category: 'Backend' },
+  { name: 'PHP', icon: <SiPhp />, category: 'Backend' },
+  { name: 'Laravel', icon: <SiLaravel />, category: 'Backend' },
   { name: 'MongoDB', icon: <SiMongodb />, category: 'Database' },
   { name: 'Supabase', icon: <SiSupabase />, category: 'Database' },
-  { name: 'Python', icon: <SiPython />, category: 'Other' },
   { name: 'Git', icon: <FaGitAlt />, category: 'Other' },
   { name: 'GitHub', icon: <FaGithub />, category: 'Other' },
 ];

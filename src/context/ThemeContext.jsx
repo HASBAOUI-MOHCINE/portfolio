@@ -41,7 +41,7 @@ export const translations = {
       home: 'Home',
       skills: 'Skills',
       certifications: 'Certifications',
-      projects: 'Projects',
+      projects: 'Portfolio',
       contact: 'Contact',
     },
     home: {
@@ -97,7 +97,7 @@ export const translations = {
       },
     },
     projects: {
-      title: 'My Projects',
+      title: 'My Portfolio',
       demo: 'Live Demo',
       code: 'Code',
       more: 'More projects coming soon...',
@@ -160,7 +160,7 @@ export const translations = {
       home: 'Accueil',
       skills: 'Compétences',
       certifications: 'Certifications',
-      projects: 'Projets',
+      projects: 'Portfolio',
       contact: 'Contact',
     },
     home: {
@@ -216,7 +216,7 @@ export const translations = {
       },
     },
     projects: {
-      title: 'Mes Projets',
+      title: 'Mon Portfolio',
       demo: 'Démo',
       code: 'Code',
       more: 'Plus de projets bientôt...',

@@ -24,17 +24,11 @@ const Navbar = () => {
           : 'backdrop-blur-md bg-white/80 shadow-lg shadow-gray-200/50'
         : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
-        <Link
-          to="/"
-          className="text-lg sm:text-xl md:text-2xl font-bold text-purple-500 hover:text-purple-400 transition-colors duration-300"
-        >
-          MOHCINE DEV
-        </Link>
+      <div className="max-w-7xl mx-auto relative flex items-center px-4 sm:px-6 py-3 sm:py-4">
+        <div className="flex-1 flex justify-center">
 
         {/* Desktop */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-          <ul className="flex gap-6 xl:gap-8 text-sm font-medium">
+          <ul className="hidden lg:flex gap-6 xl:gap-8 text-sm font-medium">
             <li>
               <Link
                 to="/"
@@ -111,33 +105,33 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
+        </div>
 
-          {/* Desktop Toggles */}
-          <div className="flex items-center gap-2 ml-4 pl-4 border-l border-gray-700/50">
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLang}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all duration-300 ${
-                isDark 
-                  ? 'bg-gray-800/60 text-gray-300 hover:text-purple-400 hover:bg-gray-800' 
-                  : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
-              }`}
-            >
-              {lang === 'fr' ? 'FR' : 'EN'}
-            </button>
+        {/* Desktop Toggles */}
+        <div className="hidden lg:flex items-center gap-2 absolute right-4 sm:right-6">
+          {/* Language Toggle */}
+          <button
+            onClick={toggleLang}
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all duration-300 ${
+              isDark 
+                ? 'bg-gray-800/60 text-gray-300 hover:text-purple-400 hover:bg-gray-800' 
+                : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
+            }`}
+          >
+            {lang === 'fr' ? 'FR' : 'EN'}
+          </button>
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                isDark 
-                  ? 'bg-gray-800/60 text-gray-300 hover:text-yellow-400 hover:bg-gray-800' 
-                  : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
-              }`}
-            >
-              {isDark ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
-            </button>
-          </div>
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-300 ${
+              isDark 
+                ? 'bg-gray-800/60 text-gray-300 hover:text-yellow-400 hover:bg-gray-800' 
+                : 'bg-gray-100 text-gray-600 hover:text-purple-600 hover:bg-gray-200'
+            }`}
+          >
+            {isDark ? <FiSun className="w-4 h-4" /> : <FiMoon className="w-4 h-4" />}
+          </button>
         </div>
 
         {/* Mobile Controls */}
@@ -151,7 +145,7 @@ const Navbar = () => {
                 : 'bg-gray-100 text-gray-600 hover:text-purple-600'
             }`}
           >
-            {lang === 'en' ? 'EN' : 'EN'}
+            {lang === 'fr' ? 'FR' : 'EN'}
           </button>
 
           {/* Theme Toggle Mobile */}
