@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useTheme, useTranslation } from "../context/ThemeContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const { isDark } = useTheme();
   const t = useTranslation();
+  const footerRef = useRef(null);
+  const iconsRef = useRef([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Icons slide up with stagger
+      gsap.fromTo(iconsRef.current,
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 95%",
+          }
+        }
+      );
+
+      // Hover effects
+      iconsRef.current.forEach(icon => {
+        if (icon) {
+          icon.addEventListener('mouseenter', () => {
+            gsap.to(icon, { y: -5, scale: 1.1, duration: 0.3, ease: "power2.out" });
+          });
+          icon.addEventListener('mouseleave', () => {
+            gsap.to(icon, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+          });
+        }
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const socials = [
     { icon: faGithub, link: "https://github.com/HASBAOUI-MOHCINE" },
@@ -16,7 +56,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className={`relative z-10 py-8 sm:py-12 mt-8 sm:mt-12 border-t ${
+    <footer ref={footerRef} className={`relative z-10 py-8 sm:py-12 mt-8 sm:mt-12 border-t ${
       isDark ? 'border-gray-800/50' : 'border-gray-200'
     }`}>
       <p className={`text-center mb-4 sm:mb-6 text-xs sm:text-sm px-4 ${isDark ? 'text-gray-600' : 'text-gray-500'}`}>
@@ -26,13 +66,14 @@ const Footer = () => {
         {socials.map((social, i) => (
           <a
             key={i}
+            ref={el => iconsRef.current[i] = el}
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-300 ${
+            className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
               isDark 
-                ? 'bg-gray-800/50 border border-gray-700/50 text-gray-500 hover:text-purple-400 hover:border-gray-600/50' 
-                : 'bg-gray-100 border border-gray-200 text-gray-500 hover:text-purple-500 hover:border-gray-300'
+                ? 'bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700' 
+                : 'bg-gray-100 text-gray-500 hover:text-gray-900 hover:bg-gray-200'
             }`}
           >
             <FontAwesomeIcon icon={social.icon} className="text-base sm:text-lg" />

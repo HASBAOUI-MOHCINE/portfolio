@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { useTheme, useTranslation } from "../context/ThemeContext";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const { isDark } = useTheme();
   const t = useTranslation();
+  const sectionRef = useRef(null);
+  const cardsRef = useRef([]);
 
   const projects = [
     {
@@ -20,15 +26,15 @@ const Projects = () => {
     {
       title: "Noortomark",
       description: "A professional bookmark management application",
-      tags: ["React", "JavaScript", "Tailwind CSS", "Web App"],
+      tags: ["React", "Tailwind CSS", "Vite", "Responsive"],
       demo: 'https://noortomark.com',
-      code: 'https://github.com/HASBAOUI-MOHCINE/noortomark',
+      code: 'https://github.com/HASBAOUI-MOHCINE/noortomark-v2',
       image: '/images/noortomark.png',
     },
     {
       title: "Delicious Bites",
       description: "A restaurant menu showcasing app with smooth animations",
-      tags: ["HTML", "CSS", "JavaScript", "Design"],
+      tags: ["html", "css"],
       demo: 'https://delicious-bites-menu.netlify.app',
       code: 'https://github.com/HASBAOUI-MOHCINE/first-project-html-css-sass',
       image: '/images/delicious-bites.png',
@@ -36,7 +42,7 @@ const Projects = () => {
     {
       title: "CineView",
       description: "An AI-powered movie recommendation platform",
-      tags: ["AI", "Machine Learning", "Python", "Web"],
+      tags: ["html", "css", "javascript", "design"],
       demo: 'https://hasbaoui-mohcine.github.io/ai-final-project/',
       code: 'https://github.com/HASBAOUI-MOHCINE/ai-final-project',
       image: '/images/cineview.png',
@@ -67,8 +73,45 @@ const Projects = () => {
     },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Cards slide up with stagger
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.fromTo(card,
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+              },
+              delay: (index % 3) * 0.1,
+            }
+          );
+
+          // Image zoom on hover
+          const img = card.querySelector('img');
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, { y: -10, duration: 0.3, ease: "power2.out" });
+            if (img) gsap.to(img, { scale: 1.1, duration: 0.4, ease: "power2.out" });
+          });
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out" });
+            if (img) gsap.to(img, { scale: 1, duration: 0.4, ease: "power2.out" });
+          });
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
+    <section ref={sectionRef} className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
       <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16">
         <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
         <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{t.projects.title}</h2>
@@ -113,10 +156,11 @@ const Projects = () => {
         {projects.map((project, i) => (
           <div
             key={i}
-            className={`group rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden flex flex-col h-full ${
+            ref={el => cardsRef.current[i] = el}
+            className={`group rounded-xl overflow-hidden flex flex-col h-full transition-colors ${
               isDark 
-                ? 'bg-gray-800/30 border border-gray-700/50 hover:border-gray-600/50' 
-                : 'bg-white/60 border border-gray-200 hover:border-gray-300 shadow-sm'
+                ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' 
+                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'
             }`}
           >
             {/* Project Image - Clickable */}
@@ -161,7 +205,7 @@ const Projects = () => {
                     href={project.code}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`hover:text-purple-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                    className={`hover:text-rose-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
                   >
                     <FontAwesomeIcon icon={faGithub} className="w-3 h-3 sm:w-4 sm:h-4" />
                     {t.projects.code}

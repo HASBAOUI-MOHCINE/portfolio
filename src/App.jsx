@@ -111,7 +111,7 @@ function AppContent() {
   
   return (
     <Router>
-      <div className={`relative min-h-screen transition-colors duration-300 ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
+      <div className={`relative min-h-screen ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>
         <Background />
         <Navbar />
         <main className="relative z-10">

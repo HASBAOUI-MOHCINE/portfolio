@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FaGraduationCap, FaCogs, FaShieldAlt, FaHeadset } from 'react-icons/fa';
 import { SiMongodb, SiReact, SiNodedotjs, SiLinux } from 'react-icons/si';
 import { useTheme, useTranslation } from '../context/ThemeContext';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Certifications = () => {
-  const [visible, setVisible] = useState(false);
   const sectionRef = useRef(null);
+  const eduCardsRef = useRef([]);
+  const certCardsRef = useRef([]);
   const { isDark } = useTheme();
   const t = useTranslation();
 
@@ -31,7 +36,64 @@ const Certifications = () => {
   }));
 
   useEffect(() => {
-    setVisible(true);
+    const ctx = gsap.context(() => {
+      // Education cards - slide from left
+      eduCardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.fromTo(card,
+            { x: -40, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+              },
+              delay: index * 0.1,
+            }
+          );
+
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, { x: 10, duration: 0.3, ease: "power2.out" });
+          });
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { x: 0, duration: 0.3, ease: "power2.out" });
+          });
+        }
+      });
+
+      // Certification cards - scale up
+      certCardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.fromTo(card,
+            { y: 40, opacity: 0, scale: 0.9 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+              },
+              delay: index * 0.08,
+            }
+          );
+
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, { y: -8, scale: 1.03, duration: 0.3, ease: "power2.out" });
+          });
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+          });
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -52,15 +114,17 @@ const Certifications = () => {
         {education.map((edu, i) => (
           <div
             key={edu.name}
-            className={`group flex items-start gap-4 p-5 sm:p-6 rounded-xl sm:rounded-2xl transition-all duration-300 ${
+            ref={el => eduCardsRef.current[i] = el}
+            className={`group flex items-start gap-4 p-5 sm:p-6 rounded-xl transition-colors ${
               isDark 
-                ? 'bg-gray-800/30 border border-gray-700/50 hover:border-gray-600/50' 
-                : 'bg-white/60 border border-gray-200 hover:border-gray-300 shadow-sm'
+                ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' 
+                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'
             }`}
-            style={{ animation: visible ? `fadeIn .6s ${(i * 100)}ms ease-out both` : 'none' }}
           >
-            <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg sm:rounded-xl group-hover:text-purple-500 transition-colors ${
-              isDark ? 'bg-gray-900/50 text-gray-400' : 'bg-gray-100 text-gray-500'
+            <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg ${
+              isDark 
+                ? 'bg-gray-900/50 text-rose-400' 
+                : 'bg-rose-50 text-rose-600'
             }`}>
               <div className="text-xl sm:text-2xl">{edu.icon}</div>
             </div>
@@ -86,33 +150,26 @@ const Certifications = () => {
         {certifications.map((cert, i) => (
           <div
             key={cert.name}
-            className={`group flex flex-col items-center text-center p-6 sm:p-8 rounded-xl sm:rounded-2xl transition-all duration-300 min-h-[200px] sm:min-h-[220px] ${
+            ref={el => certCardsRef.current[i] = el}
+            className={`group flex flex-col items-center text-center p-6 sm:p-8 rounded-xl min-h-[200px] sm:min-h-[220px] transition-colors ${
               isDark 
-                ? 'bg-gray-800/30 border border-gray-700/50 hover:border-gray-600/50' 
-                : 'bg-white/60 border border-gray-200 hover:border-gray-300 shadow-sm'
+                ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' 
+                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'
             }`}
-            style={{ animation: visible ? `fadeIn .6s ${(i * 100 + 200)}ms ease-out both` : 'none' }}
           >
-            <div className={`mb-4 sm:mb-6 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-xl sm:rounded-2xl group-hover:text-purple-500 transition-colors ${
-              isDark ? 'bg-gray-900/50 text-gray-400' : 'bg-gray-100 text-gray-500'
+            <div className={`mb-4 sm:mb-5 w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center rounded-lg ${
+              isDark 
+                ? 'bg-gray-900/50 text-amber-400' 
+                : 'bg-amber-50 text-amber-600'
             }`}>
               <div className="text-xl sm:text-2xl">{cert.icon}</div>
             </div>
             <h3 className={`text-lg sm:text-xl font-semibold mb-2 sm:mb-3 leading-tight ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{cert.name}</h3>
-            <p className="text-sm sm:text-base text-purple-500 font-medium mb-2">{cert.issuer}</p>
+            <p className={`text-sm sm:text-base font-medium mb-2 ${isDark ? 'text-amber-400' : 'text-amber-600'}`}>{cert.issuer}</p>
             <p className={`text-xs sm:text-sm mt-auto ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>{cert.date}</p>
           </div>
         ))}
       </div>
-
-      <style>
-        {`
-          @keyframes fadeIn {
-            0% { opacity:0; transform:translateY(20px); }
-            100% { opacity:1; transform:translateY(0); }
-          }
-        `}
-      </style>
     </section>
   );
 };

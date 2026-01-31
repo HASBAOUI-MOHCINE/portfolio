@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 const ThemeContext = createContext();
 
@@ -15,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
     return saved || 'en';
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
@@ -24,11 +24,19 @@ export const ThemeProvider = ({ children }) => {
     localStorage.setItem('lang', lang);
   }, [lang]);
 
-  const toggleTheme = () => setIsDark(prev => !prev);
+  const toggleTheme = (origin) => {
+    // Keep signature (origin param) for compatibility, but no reveal effect.
+    setIsDark(prev => !prev);
+  };
   const toggleLang = () => setLang(prev => prev === 'en' ? 'fr' : 'en');
 
+  const themeValue = useMemo(
+    () => ({ isDark, toggleTheme, lang, toggleLang }),
+    [isDark, lang]
+  );
+
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme, lang, toggleLang }}>
+    <ThemeContext.Provider value={themeValue}>
       {children}
     </ThemeContext.Provider>
   );
@@ -143,8 +151,11 @@ export const translations = {
       title: 'Get In Touch',
       subtitle: 'Contact via WhatsApp',
       description: 'Feel free to reach out for collaborations, job opportunities, or just to say hello!',
+      whatsapp: 'WhatsApp',
+      whatsappDesc: 'Chat with me directly on WhatsApp for quick responses and discussions.',
+      email: 'Email',
+      emailDesc: 'Send me an email for detailed inquiries, project proposals, or professional discussions.',
       name: 'Your Name *',
-      email: 'Your Email *',
       phone: 'Your Phone Number (optional)',
       message: 'Your Message (optional)',
       send: 'Start Chat',
@@ -262,8 +273,11 @@ export const translations = {
       title: 'Me Contacter',
       subtitle: 'Contact via WhatsApp',
       description: 'N\'hésitez pas à me contacter pour des collaborations, des opportunités d\'emploi ou simplement pour dire bonjour!',
+      whatsapp: 'WhatsApp',
+      whatsappDesc: 'Discutez avec moi directement sur WhatsApp pour des réponses rapides.',
+      email: 'Email',
+      emailDesc: 'Envoyez-moi un email pour des demandes détaillées, propositions de projets ou discussions professionnelles.',
       name: 'Votre Nom *',
-      email: 'Votre Email *',
       phone: 'Votre Téléphone (optionnel)',
       message: 'Votre Message (optionnel)',
       send: 'Démarrer Chat',

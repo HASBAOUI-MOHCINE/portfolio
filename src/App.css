@@ -4,47 +4,35 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Performance optimizations */
 * {
-  /* Enable hardware acceleration for better performance */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Optimize animations for mobile */
-@media (max-width: 768px) {
-  * {
-    /* Reduce motion for mobile devices */
-    animation-duration: 0.2s !important;
-    transition-duration: 0.2s !important;
-  }
-
-  /* Disable hover effects on touch devices */
-  .hover\:scale-105:hover {
-    transform: none !important;
-  }
-}
-
-/* Optimize image loading */
 img {
-  /* Prevent layout shift */
   aspect-ratio: auto;
 }
 
-/* Reduce paint on mobile */
-@media (max-width: 768px) {
-  .blur-\[200px\] {
-    filter: blur(50px);
-  }
+/* Selection */
+::selection {
+  background: rgba(244, 63, 94, 0.2);
+  color: inherit;
+}
 
-  .blur-\[180px\] {
-    filter: blur(40px);
-  }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
 
-  .blur-\[100px\] {
-    filter: blur(20px);
-  }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
