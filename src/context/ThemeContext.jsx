@@ -163,7 +163,7 @@ export const translations = {
     },
     footer: {
       connect: "Let's connect and create something amazing together",
-      rights: '© 2025 Mohcine Hasbaoui. All rights reserved.',
+      rights: '© {year} Mohcine Hasbaoui. All rights reserved.',
     },
   },
   fr: {
@@ -285,7 +285,7 @@ export const translations = {
     },
     footer: {
       connect: 'Connectons-nous et créons quelque chose d\'incroyable ensemble',
-      rights: '© 2025 Mohcine Hasbaoui. Tous droits réservés.',
+      rights: '© {year} Mohcine Hasbaoui. Tous droits réservés.',
     },
   },
 };

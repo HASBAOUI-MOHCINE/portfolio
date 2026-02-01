@@ -11,8 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 const Footer = () => {
   const { isDark } = useTheme();
   const t = useTranslation();
+  const year = new Date().getFullYear();
   const footerRef = useRef(null);
   const iconsRef = useRef([]);
+
+  const rightsText = typeof t?.footer?.rights === 'string'
+    ? t.footer.rights.replace(/\{year\}/g, String(year))
+    : `© ${year}`;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -81,7 +86,7 @@ const Footer = () => {
         ))}
       </div>
       <p className={`text-center text-[10px] sm:text-xs ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-        {t.footer.rights}
+        {rightsText}
       </p>
     </footer>
   );
