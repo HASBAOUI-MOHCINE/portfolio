@@ -8,170 +8,93 @@ const Home = () => {
   const t = useTranslation();
   
   const sectionRef = useRef(null);
-  const titleRef = useRef(null);
-  const highlightRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const descRef = useRef(null);
-  const ctaRef = useRef(null);
-  const secondaryCtaRef = useRef(null);
-  const bgShape1 = useRef(null);
-  const bgShape2 = useRef(null);
+  const contentRef = useRef(null);
 
   useEffect(() => {
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     const ctx = gsap.context(() => {
-      if (!prefersReducedMotion) {
-        gsap.to(bgShape1.current, {
-          x: 40,
-          y: -20,
-          duration: 10,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-        gsap.to(bgShape2.current, {
-          x: -35,
-          y: 25,
-          duration: 12,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
-
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.15 });
-
-      if (!prefersReducedMotion) {
-        tl.fromTo(
-          subtitleRef.current,
-          { y: 12, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.45 }
-        )
-          .fromTo(
-            titleRef.current,
-            { y: 18, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.55 },
-            "-=0.15"
-          )
-          .fromTo(
-            highlightRef.current,
-            { y: 18, opacity: 0, filter: "blur(6px)" },
-            { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6 },
-            "-=0.35"
-          )
-          .fromTo(
-            descRef.current,
-            { y: 10, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.45 },
-            "-=0.25"
-          )
-          .fromTo(
-            [ctaRef.current, secondaryCtaRef.current],
-            { y: 10, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.4, stagger: 0.08 },
-            "-=0.2"
-          );
-      } else {
-        gsap.set(
-          [subtitleRef.current, titleRef.current, highlightRef.current, descRef.current, ctaRef.current, secondaryCtaRef.current],
-          { opacity: 1, clearProps: "transform" }
-        );
-      }
-
-      const btn = ctaRef.current;
-      const onEnter = () => {
-        gsap.to(btn, { scale: 1.02, duration: 0.18, ease: "power2.out" });
-      };
-      const onLeave = () => {
-        gsap.to(btn, { scale: 1, duration: 0.18, ease: "power2.out" });
-      };
-      btn?.addEventListener("mouseenter", onEnter);
-      btn?.addEventListener("mouseleave", onLeave);
-
-      return () => {
-        btn?.removeEventListener("mouseenter", onEnter);
-        btn?.removeEventListener("mouseleave", onLeave);
-      };
+      // Much more premium, bouncy intro sequence vs standard "WordPress fade-in"
+      gsap.fromTo(
+        contentRef.current.children,
+        { y: 60, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.15, ease: "expo.out" }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-20 sm:pt-24 min-h-screen flex flex-col justify-center items-center text-center px-4 sm:px-6 relative overflow-hidden">
-      {/* Subtle background accent */}
-      <div
-        ref={bgShape1}
-        className={`absolute top-1/4 -left-32 w-72 h-72 sm:w-[400px] sm:h-[400px] rounded-full blur-[120px] pointer-events-none ${
-          isDark ? 'bg-rose-900/20' : 'bg-rose-200/40'
-        }`}
-      />
-      <div
-        ref={bgShape2}
-        className={`absolute bottom-1/4 -right-32 w-72 h-72 sm:w-[350px] sm:h-[350px] rounded-full blur-[120px] pointer-events-none ${
-          isDark ? 'bg-amber-900/15' : 'bg-amber-200/30'
-        }`}
-      />
+    <section ref={sectionRef} className="pt-24 sm:pt-32 min-h-[90vh] flex flex-col justify-center items-center px-4 sm:px-6 relative overflow-hidden">
+      
+      {/* Dynamic Grid Background Overlay */}
+      <div className={`absolute inset-0 z-0 pointer-events-none transition-colors duration-1000 ${
+        isDark 
+          ? '[background-image:linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] [background-size:32px_32px]' 
+          : '[background-image:linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] [background-size:32px_32px]'
+      }`}>
+        <div className={`absolute inset-0 ${isDark ? 'bg-[radial-gradient(ellipse_70%_70%_at_50%_0%,#00000000_0%,#000000_100%)]' : 'bg-[radial-gradient(ellipse_70%_70%_at_50%_0%,#ffffff00_0%,#ffffff_100%)]'}`}></div>
+      </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Badge */}
-        <div ref={subtitleRef} className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-8 ${
+      <div ref={contentRef} className="relative z-10 max-w-5xl mx-auto w-full flex flex-col items-center">
+        
+        {/* Availability Badge */}
+        <div className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest mb-10 sm:mb-12 transition-all duration-500 hover:scale-105 cursor-default ${
           isDark 
-            ? 'bg-white/5 text-gray-400 border border-white/10' 
-            : 'bg-gray-100 text-gray-600 border border-gray-200'
+            ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20 shadow-[0_0_20px_rgba(244,63,94,0.15)] hover:shadow-[0_0_30px_rgba(244,63,94,0.25)]' 
+            : 'bg-white text-rose-600 border border-rose-200 shadow-xl'
         }`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${isDark ? 'bg-rose-400' : 'bg-rose-600'}`}></span>
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+          </span>
           {t.home.subtitle}
         </div>
 
-        <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight ${
+        {/* Hero Title */}
+        <h1 className={`text-center font-black tracking-tighter text-6xl sm:text-8xl md:text-[7rem] leading-[0.95] mb-8 ${
           isDark ? 'text-white' : 'text-gray-900'
         }`}>
-          <span ref={titleRef} className="inline-block">{t.home.title}</span>{" "}
-          <span ref={highlightRef} className={`inline-block ${
-            isDark ? 'text-rose-400' : 'text-rose-600'
-          }`}>
+          <span className="block">{t.home.title}</span>
+          <span className={`block pb-2 text-transparent bg-clip-text bg-gradient-to-tr ${isDark ? 'from-rose-400 via-amber-200 to-white' : 'from-rose-600 via-amber-500 to-black'}`}>
             {t.home.titleHighlight}
           </span>
         </h1>
 
-        <p ref={descRef} className={`max-w-xl text-base sm:text-lg mb-10 leading-relaxed mx-auto ${
+        {/* Descriptor */}
+        <p className={`text-center max-w-2xl text-lg sm:text-2xl mb-12 leading-relaxed mx-auto font-bold tracking-tight ${
           isDark ? 'text-gray-400' : 'text-gray-600'
         }`}>
           {t.home.description}
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full sm:w-auto">
           <Link
-            ref={ctaRef}
             to="/projects"
-            className={`inline-flex items-center gap-2 px-6 py-3 font-medium rounded-lg transition-colors text-sm sm:text-base ${
+            className={`group relative w-full sm:w-auto inline-flex justify-center items-center gap-4 px-10 py-5 font-black uppercase tracking-widest rounded-none border-2 transition-all duration-300 text-sm overflow-hidden ${
               isDark 
-                ? 'bg-rose-600 hover:bg-rose-500 text-white' 
-                : 'bg-rose-600 hover:bg-rose-700 text-white'
+                ? 'bg-white text-black border-white hover:bg-transparent hover:text-white shadow-[0_0_30px_rgba(255,255,255,0.15)]' 
+                : 'bg-black text-white border-black hover:bg-transparent hover:text-black shadow-[0_10px_30px_rgba(0,0,0,0.2)]'
             }`}
           >
-            {t.home.cta}
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <span className="relative z-10">{t.home.cta}</span>
+            <svg className="w-5 h-5 relative z-10 transition-transform duration-500 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
+          
           <Link
-            ref={secondaryCtaRef}
             to="/contact"
-            className={`inline-flex items-center gap-2 px-6 py-3 font-medium rounded-lg transition-colors text-sm sm:text-base ${
+            className={`group w-full sm:w-auto inline-flex justify-center items-center px-10 py-5 font-black uppercase tracking-widest rounded-none border-2 transition-all duration-300 text-sm ${
               isDark 
-                ? 'text-gray-300 hover:text-white border border-gray-700 hover:border-gray-600' 
-                : 'text-gray-700 hover:text-gray-900 border border-gray-300 hover:border-gray-400'
+                ? 'border-gray-700 text-gray-300 hover:bg-white hover:border-white hover:text-black' 
+                : 'border-gray-300 text-gray-600 hover:bg-black hover:border-black hover:text-white'
             }`}
           >
             {t.contact.title}
           </Link>
         </div>
+
       </div>
     </section>
   );

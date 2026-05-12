@@ -1,106 +1,179 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useTheme, useTranslation } from "../context/ThemeContext";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const { isDark } = useTheme();
+  const { isDark, lang } = useTheme();
   const t = useTranslation();
+  const isRTL = lang === 'ar';
+  
   const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
+  const servicesList = Object.values(t.contact.services || {});
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: servicesList[0] || "",
+    message: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrorMsg("");
+  };
+
+  const handleAction = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      setErrorMsg(t.contact.validationError || "Please fill in all required fields.");
+      return;
+    }
+
+    const text = `Name: ${formData.name}%0AEmail: ${formData.email}%0AInterested in: ${formData.subject}%0AMessage: ${formData.message}`;
+    const targetUrl = `https://wa.me/212622664410?text=${text}`;
+    window.open(targetUrl, '_blank', 'noopener,noreferrer');
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Cards slide up
-      cardsRef.current.forEach((card, index) => {
-        if (card) {
-          gsap.fromTo(card,
-            { y: 50, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.7,
-              ease: "power3.out",
-              delay: 0.2 + index * 0.15,
-            }
-          );
-
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, { y: -8, scale: 1.02, duration: 0.3, ease: "power2.out" });
-          });
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
-          });
-        }
-      });
+      gsap.fromTo(leftRef.current,
+        { x: isRTL ? 50 : -50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: "expo.out", scrollTrigger: { trigger: sectionRef.current, start: "top 80%" } }
+      );
+      gsap.fromTo(rightRef.current,
+        { x: isRTL ? -50 : 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: "expo.out", delay: 0.1, scrollTrigger: { trigger: sectionRef.current, start: "top 80%" } }
+      );
     }, sectionRef);
-
     return () => ctx.revert();
-  }, []);
+  }, [isRTL]);
 
-  const generateWhatsAppLink = () => {
-    const baseUrl = "https://wa.me/212622664410";
-    const message = "Hello Mohcine! I'd like to get in touch regarding a collaboration or project opportunity.";
-    return `${baseUrl}?text=${encodeURIComponent(message)}`;
-  };
-
-  const generateEmailLink = () => {
-    const subject = "Contact from Portfolio";
-    const body = "Hello Mohcine!\n\nI'd like to get in touch regarding a collaboration or project opportunity.\n\nBest regards,";
-    return `mailto:hasbaouimohcin12@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
+  const inputClasses = `w-full px-5 py-4 text-sm font-bold tracking-wide rounded-none border-2 transition-colors outline-none ${
+    isDark 
+      ? 'bg-black border-gray-800 text-white placeholder-gray-600 focus:border-white focus:bg-gray-900' 
+      : 'bg-white border-gray-200 text-black placeholder-gray-400 focus:border-black focus:bg-gray-50'
+  }`;
 
   return (
-    <section ref={sectionRef} className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 min-h-screen">
-      <div className="text-center mb-10 sm:mb-12">
-        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{t.contact.title}</h2>
-      </div>
-      <div className="max-w-3xl mx-auto grid gap-6 sm:grid-cols-2">
-        {/* WhatsApp Section */}
-        <div ref={el => cardsRef.current[0] = el} className={`rounded-xl p-6 sm:p-8 text-center transition-colors ${isDark ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'}`}>
-          <div className="mb-4">
-            <FontAwesomeIcon icon={faWhatsapp} className="text-4xl sm:text-5xl text-green-500" />
+    <section ref={sectionRef} className={`pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen flex items-center ${isDark ? 'text-white' : 'text-black'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        
+        {/* Left Side: Info & Living Data */}
+        <div ref={leftRef} className="flex flex-col gap-12">
+          <div>
+            <h2 className="text-4xl sm:text-6xl md:text-[5rem] leading-[0.9] font-black tracking-tighter uppercase mb-6">
+              {t.contact.title}.
+            </h2>
+            <p className={`text-lg sm:text-xl font-bold tracking-tight max-w-md ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              {t.contact.subtitle}
+            </p>
           </div>
-          <h3 className={`text-lg sm:text-xl font-semibold mb-3 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{t.contact.whatsapp}</h3>
-          <p className={`mb-4 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            {t.contact.whatsappDesc}
-          </p>
-          <div className={`mb-4 text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-            <FontAwesomeIcon icon={faPhone} className="mr-2" />
-            +212 622 664410
+
+          <div className="flex flex-col gap-6 w-full">
+            <a href="mailto:hasbaouimohcin12@gmail.com" className={`group flex items-center gap-6 text-sm sm:text-base font-bold transition-all ${
+              isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'
+            }`}>
+              <span className={`w-14 h-14 shrink-0 flex items-center justify-center border-2 transition-all duration-300 ${isDark ? 'border-gray-800 bg-gray-900 group-hover:border-rose-400 group-hover:bg-rose-400 group-hover:text-black' : 'border-gray-200 bg-gray-50 group-hover:border-rose-500 group-hover:bg-rose-500 group-hover:text-white'}`}>
+                <FontAwesomeIcon icon={faEnvelope} className="text-xl" />
+              </span>
+              <span className="tracking-wide truncate">hasbaouimohcin12@gmail.com</span>
+            </a>
+            
+            <a href="https://wa.me/212622664410" target="_blank" rel="noopener noreferrer" className={`group flex items-center gap-6 text-sm sm:text-base font-bold transition-all ${
+              isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-black'
+            }`}>
+              <span className={`w-14 h-14 shrink-0 flex items-center justify-center border-2 transition-all duration-300 ${isDark ? 'border-gray-800 bg-gray-900 group-hover:border-green-400 group-hover:bg-green-400 group-hover:text-black' : 'border-gray-200 bg-gray-50 group-hover:border-green-500 group-hover:bg-green-500 group-hover:text-white'}`}>
+                <FontAwesomeIcon icon={faWhatsapp} className="text-xl" />
+              </span>
+              <span className="tracking-wide truncate">+212 622 664410</span>
+            </a>
+
+            <div className={`flex items-center gap-6 text-sm sm:text-base font-bold ${
+              isDark ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              <span className={`w-14 h-14 shrink-0 flex items-center justify-center border-2 ${isDark ? 'border-gray-800 bg-gray-900 text-white' : 'border-gray-200 bg-gray-50 text-black'}`}>
+                <FontAwesomeIcon icon={faMapMarkerAlt} className="text-xl" />
+              </span>
+              <span className="tracking-wide truncate">Bouskoura Casa, MA</span>
+            </div>
           </div>
-          <button
-            onClick={() => window.open(generateWhatsAppLink(), '_blank')}
-            className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 text-sm sm:text-base w-full"
-          >
-            <FontAwesomeIcon icon={faWhatsapp} />
-            {t.contact.send}
-          </button>
         </div>
 
-        {/* Email Section */}
-        <div ref={el => cardsRef.current[1] = el} className={`rounded-xl p-6 sm:p-8 text-center transition-colors ${isDark ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'}`}>
-          <div className="mb-4">
-            <FontAwesomeIcon icon={faEnvelope} className={`text-3xl sm:text-4xl ${isDark ? 'text-rose-400' : 'text-rose-600'}`} />
-          </div>
-          <h3 className={`text-lg sm:text-xl font-semibold mb-3 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{t.contact.email}</h3>
-          <p className={`mb-4 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            {t.contact.emailDesc}
-          </p>
-          <div className={`mb-4 text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
-            <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-            hasbaouimohcin12@gmail.com
-          </div>
-          <button
-            onClick={() => window.open(generateEmailLink(), '_blank')}
-            className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-colors text-sm sm:text-base w-full ${isDark ? 'bg-rose-600 hover:bg-rose-500 text-white' : 'bg-rose-600 hover:bg-rose-700 text-white'}`}
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-            {t.contact.sendEmail}
-          </button>
+        {/* Right Side: Form */}
+        <div ref={rightRef} className={`p-8 sm:p-12 border-2 ${isDark ? 'border-gray-800 bg-black/30' : 'border-gray-200 bg-white/30'}`}>
+          <form className="flex flex-col gap-5" onSubmit={handleAction}>
+            {errorMsg && (
+              <div className={`p-4 text-sm border-l-4 font-bold ${isDark ? 'bg-red-900/20 border-red-500 text-red-400' : 'bg-red-50 border-red-500 text-red-600'}`}>
+                {errorMsg}
+              </div>
+            )}
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder={t.contact.name || 'Your Name'}
+                className={inputClasses}
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder={t.contact.email || 'Email Address'}
+                className={inputClasses}
+              />
+            </div>
+            
+            <select
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className={`${inputClasses} appearance-none cursor-pointer`}
+              style={{ paddingRight: isRTL ? '1.25rem' : '2.5rem', paddingLeft: isRTL ? '2.5rem' : '1.25rem' }}
+            >
+              {servicesList.map((service, index) => (
+                <option key={index} value={service} className={isDark ? 'bg-gray-900' : 'bg-white'}>
+                  {service}
+                </option>
+              ))}
+            </select>
+
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder={t.contact.message || 'Your Message'}
+              rows="5"
+              className={`${inputClasses} resize-y min-h-[140px]`}
+            ></textarea>
+
+            <button
+              type="submit"
+              className={`group w-full mt-4 py-5 px-8 flex items-center justify-center gap-3 text-sm font-black uppercase tracking-widest transition-all duration-300 border-2 ${
+                isDark 
+                  ? 'bg-white text-black border-white hover:bg-black hover:text-white shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-none' 
+                  : 'bg-black text-white border-black hover:bg-white hover:text-black shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:shadow-none'
+              }`}
+            >
+              <span>{t.contact.send || 'Send Message'}</span>
+              <FontAwesomeIcon icon={faPaperPlane} className={`text-base transition-transform duration-500 ${isRTL ? 'group-hover:-translate-x-2 -scale-x-100' : 'group-hover:translate-x-2'}`} />
+            </button>
+          </form>
         </div>
+
       </div>
     </section>
   );

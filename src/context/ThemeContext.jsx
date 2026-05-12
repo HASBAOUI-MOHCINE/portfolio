@@ -157,9 +157,18 @@ export const translations = {
       emailDesc: 'Send me an email for detailed inquiries, project proposals, or professional discussions.',
       name: 'Your Name *',
       phone: 'Your Phone Number (optional)',
+      service: 'What do you need?',
       message: 'Your Message (optional)',
       send: 'Start Chat',
       sendEmail: 'Send Email',
+      services: {
+        freelance: "Freelance Project",
+        internship: "Internship Opportunity",
+        junior: "Junior Developer Role",
+        collab: "Collaboration",
+        hello: "Just saying hi!",
+        other: "Other"
+      }
     },
     footer: {
       connect: "Let's connect and create something amazing together",
@@ -279,9 +288,18 @@ export const translations = {
       emailDesc: 'Envoyez-moi un email pour des demandes détaillées, propositions de projets ou discussions professionnelles.',
       name: 'Votre Nom *',
       phone: 'Votre Téléphone (optionnel)',
+      service: 'Besoin de quel service ?',
       message: 'Votre Message (optionnel)',
       send: 'Démarrer Chat',
       sendEmail: 'Envoyer Email',
+      services: {
+        freelance: "Projet Freelance",
+        internship: "Opportunité de Stage",
+        junior: "Poste Développeur Junior",
+        collab: "Collaboration",
+        hello: "Juste pour dire bonjour !",
+        other: "Autre"
+      }
     },
     footer: {
       connect: 'Connectons-nous et créons quelque chose d\'incroyable ensemble',

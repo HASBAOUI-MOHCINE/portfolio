@@ -1,93 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
+import { useTranslation, useTheme } from '../context/ThemeContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { useTheme, useTranslation } from "../context/ThemeContext";
+import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
-  const { isDark } = useTheme();
-  const t = useTranslation();
-  const year = new Date().getFullYear();
+  const { isDark, lang } = useTheme();
+  const isRTL = lang === 'ar';
   const footerRef = useRef(null);
-  const iconsRef = useRef([]);
-
-  const rightsText = typeof t?.footer?.rights === 'string'
-    ? t.footer.rights.replace(/\{year\}/g, String(year))
-    : `© ${year}`;
+  
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Icons slide up with stagger
-      gsap.fromTo(iconsRef.current,
+      gsap.fromTo(footerRef.current,
         { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 95%",
-          }
-        }
+        { y: 0, opacity: 1, duration: 1, ease: "expo.out", scrollTrigger: { trigger: footerRef.current, start: "top 95%" } }
       );
-
-      // Hover effects
-      iconsRef.current.forEach(icon => {
-        if (icon) {
-          icon.addEventListener('mouseenter', () => {
-            gsap.to(icon, { y: -5, scale: 1.1, duration: 0.3, ease: "power2.out" });
-          });
-          icon.addEventListener('mouseleave', () => {
-            gsap.to(icon, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
-          });
-        }
-      });
     }, footerRef);
-
     return () => ctx.revert();
   }, []);
 
-  const socials = [
-    { icon: faGithub, link: "https://github.com/HASBAOUI-MOHCINE" },
-    { icon: faFacebook, link: "https://www.facebook.com/mohcine.hasbaoui1/" },
-    { icon: faInstagram, link: "https://www.instagram.com/mh7__x" },
-    { icon: faEnvelope, link: "mailto:hasbaouimohcin12@gmail.com" },
-  ];
-
   return (
-    <footer ref={footerRef} className={`relative z-10 py-8 sm:py-12 mt-8 sm:mt-12 border-t ${
-      isDark ? 'border-gray-800/50' : 'border-gray-200'
-    }`}>
-      <p className={`text-center mb-4 sm:mb-6 text-xs sm:text-sm px-4 ${isDark ? 'text-gray-600' : 'text-gray-500'}`}>
-        {t.footer.connect}
-      </p>
-      <div className="flex justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-        {socials.map((social, i) => (
-          <a
-            key={i}
-            ref={el => iconsRef.current[i] = el}
-            href={social.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-              isDark 
-                ? 'bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700' 
-                : 'bg-gray-100 text-gray-500 hover:text-gray-900 hover:bg-gray-200'
-            }`}
-          >
-            <FontAwesomeIcon icon={social.icon} className="text-base sm:text-lg" />
-          </a>
-        ))}
+    <footer ref={footerRef} className={`border-t transition-colors duration-300 ${
+      isDark ? 'bg-black border-gray-800 text-white' : 'bg-white border-gray-200 text-black'
+    }`} dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className={`text-xs font-bold tracking-widest uppercase text-center sm:text-left ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>
+            &copy; {currentYear} Mohcine Hasbaoui. All rights reserved.
+          </p>
+          
+          <div className="flex items-center gap-5">
+            {[
+              { icon: faLinkedin, href: "https://www.linkedin.com/in/mohcine-hasbaoui-1aba712bb/" },
+              { icon: faGithub, href: "https://github.com/HASBAOUI-MOHCINE" }
+            ].map((item, idx) => (
+              <a key={idx} href={item.href} target="_blank" rel="noopener noreferrer" className={`transition-all duration-300 hover:scale-110 ${
+                isDark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'
+              }`}>
+                <FontAwesomeIcon icon={item.icon} className="text-xl" />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
-      <p className={`text-center text-[10px] sm:text-xs ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-        {rightsText}
-      </p>
     </footer>
   );
 };

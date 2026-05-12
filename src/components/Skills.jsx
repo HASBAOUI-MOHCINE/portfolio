@@ -27,7 +27,6 @@ const skills = [
 
 const Skills = () => {
   const sectionRef = useRef(null);
-  const titleRef = useRef(null);
   const cardsRef = useRef([]);
   const skillItemsRef = useRef([]);
   const { isDark } = useTheme();
@@ -35,82 +34,44 @@ const Skills = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Title slide up
-      gsap.fromTo(titleRef.current,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: titleRef.current,
-            start: "top 85%",
-          }
-        }
-      );
-
-      // Cards stagger with slide and scale
       cardsRef.current.forEach((card, index) => {
         if (card) {
           gsap.fromTo(card,
-            { y: 50, opacity: 0, scale: 0.95 },
+            { y: 30, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              scale: 1,
-              duration: 0.6,
-              ease: "power3.out",
+              duration: 0.5,
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: card,
-                start: "top 88%",
+                start: "top 90%",
               },
               delay: index * 0.1,
             }
           );
-
-          // Hover lift effect
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, { y: -8, scale: 1.02, duration: 0.3, ease: "power2.out" });
-          });
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
-          });
         }
       });
-
-      // Skill items pop in with stagger
+      
       skillItemsRef.current.forEach((item, index) => {
         if (item) {
           gsap.fromTo(item,
-            { y: 20, opacity: 0, scale: 0.8 },
+            { scale: 0.9, opacity: 0 },
             {
-              y: 0,
-              opacity: 1,
               scale: 1,
+              opacity: 1,
               duration: 0.4,
-              ease: "back.out(1.7)",
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: item,
-                start: "top 92%",
+                start: "top 95%",
               },
-              delay: (index % 7) * 0.04,
+              delay: (index % 5) * 0.05,
             }
           );
-
-          // Icon hover bounce
-          item.addEventListener('mouseenter', () => {
-            const icon = item.querySelector('svg, .icon');
-            if (icon) gsap.to(icon, { scale: 1.2, rotate: 5, duration: 0.3, ease: "back.out(2)" });
-          });
-          item.addEventListener('mouseleave', () => {
-            const icon = item.querySelector('svg, .icon');
-            if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3, ease: "power2.out" });
-          });
         }
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
@@ -121,54 +82,60 @@ const Skills = () => {
 
   let skillIndex = 0;
 
+  // Custom span layouts for dynamic bento grid
+  const bentoSpans = ["col-span-1 lg:col-span-2", "col-span-1 lg:col-span-1", "col-span-1 lg:col-span-1", "col-span-1 lg:col-span-2"];
+
   return (
     <section
       ref={sectionRef}
-      className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-6xl mx-auto min-h-screen"
+      className={`relative pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 max-w-7xl mx-auto min-h-screen border-t ${isDark ? 'border-gray-900' : 'border-gray-100'}`}
     >
-      <div ref={titleRef} className="flex items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16">
-        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
-        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-          {t.skills.title}
+      <div className="mb-12 sm:mb-20">
+        <h2 className={`text-4xl sm:text-6xl md:text-[5rem] leading-[0.9] font-black tracking-tighter uppercase mb-6 ${isDark ? 'text-white' : 'text-black'}`}>
+          {t.skills.title}.
         </h2>
-        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
+        <p className={`mt-4 text-base sm:text-lg max-w-2xl font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+          {t.skills.footer}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         {categorizedSkills.map(([category, skillsInCategory], index) => (
           <div
             key={category}
             ref={el => cardsRef.current[index] = el}
-            className={`p-5 sm:p-6 rounded-xl transition-colors ${
+            className={`group flex flex-col p-6 sm:p-8 rounded-none border-2 border transition-all duration-300 ${bentoSpans[index % bentoSpans.length]} ${
               isDark 
-                ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' 
-                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'
+                ? 'bg-black border-gray-800 hover:border-gray-600 shadow-[inset_0_1px_rgba(255,255,255,0.05)]' 
+                : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xl shadow-[0_10px_30px_rgba(0,0,0,0.2)]'
             }`}
           >
-            <h3 className={`text-lg sm:text-xl font-semibold mb-4 sm:mb-6 ${isDark ? 'text-rose-300' : 'text-rose-700'}`}>
-              {t.skills.categories[category] || category}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="mb-6 flex justify-between items-center">
+              <h3 className={`text-xl sm:text-2xl font-bold tracking-tight ${isDark ? 'text-white' : 'text-black'}`}>
+                {t.skills.categories[category] || category}
+              </h3>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isDark ? 'bg-gray-800 text-rose-400' : 'bg-rose-50 text-rose-500'}`}>
+                <div className="w-2 h-2 rounded-full bg-current"></div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-3 sm:gap-4 mt-auto">
               {skillsInCategory.map((s) => {
                 const currentIndex = skillIndex++;
                 return (
                   <div 
                     key={s.name}
                     ref={el => skillItemsRef.current[currentIndex] = el}
-                    className={`flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg transition-colors group min-h-[80px] sm:min-h-[100px] ${
+                    className={`flex items-center gap-2 sm:gap-3 px-4 py-2.5 rounded-none border-2 font-medium text-sm sm:text-base border transition-all hover:-translate-y-1 hover:shadow-lg ${
                       isDark 
-                        ? 'bg-gray-900/50 hover:bg-gray-800/50' 
-                        : 'bg-gray-50 hover:bg-gray-100'
+                        ? 'bg-gray-900 border-gray-800 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-gray-600' 
+                        : 'bg-gray-50 border-gray-200/60 text-gray-700 hover:bg-white hover:border-gray-300 hover:text-black'
                     }`}
                   >
-                    <div className={`text-2xl sm:text-3xl md:text-4xl group-hover:text-rose-500 transition-all duration-300 mb-2 sm:mb-3 flex items-center justify-center ${
-                      isDark ? 'text-gray-400' : 'text-gray-500'
-                    }`}>
+                    <span className={`text-lg transition-colors ${isDark ? 'text-gray-400 group-hover:text-rose-400' : 'text-gray-500 group-hover:text-rose-500'}`}>
                       {s.icon}
-                    </div>
-                    <p className={`text-xs sm:text-sm font-medium transition-colors text-center leading-tight ${
-                      isDark ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-500 group-hover:text-gray-700'
-                    }`}>{s.name}</p>
+                    </span>
+                    {s.name}
                   </div>
                 );
               })}
@@ -176,10 +143,6 @@ const Skills = () => {
           </div>
         ))}
       </div>
-
-      <p className={`text-center text-xs sm:text-sm mt-10 sm:mt-14 tracking-wide ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-        {t.skills.footer}
-      </p>
     </section>
   );
 };

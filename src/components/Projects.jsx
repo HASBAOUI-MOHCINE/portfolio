@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { useTheme, useTranslation } from "../context/ThemeContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -75,140 +74,112 @@ const Projects = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Cards slide up with stagger
       cardsRef.current.forEach((card, index) => {
         if (card) {
           gsap.fromTo(card,
-            { y: 60, opacity: 0 },
+            { y: 40, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              duration: 0.7,
-              ease: "power3.out",
+              duration: 0.5,
+              ease: "expo.out",
               scrollTrigger: {
                 trigger: card,
-                start: "top 88%",
+                start: "top 90%",
               },
-              delay: (index % 3) * 0.1,
             }
           );
-
-          // Image zoom on hover
-          const img = card.querySelector('img');
-          card.addEventListener('mouseenter', () => {
-            gsap.to(card, { y: -10, duration: 0.3, ease: "power2.out" });
-            if (img) gsap.to(img, { scale: 1.1, duration: 0.4, ease: "power2.out" });
-          });
-          card.addEventListener('mouseleave', () => {
-            gsap.to(card, { y: 0, duration: 0.3, ease: "power2.out" });
-            if (img) gsap.to(img, { scale: 1, duration: 0.4, ease: "power2.out" });
-          });
         }
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen">
-      <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10 sm:mb-16">
-        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
-        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{t.projects.title}</h2>
-        <div className={`h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent ${isDark ? 'to-gray-600' : 'to-gray-300'}`}></div>
+    <section ref={sectionRef} className={`pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto min-h-screen border-t ${isDark ? 'border-gray-900' : 'border-gray-100'}`}>
+      <div className="mb-12 sm:mb-20">
+        <h2 className={`text-4xl sm:text-6xl md:text-[5rem] leading-[0.9] font-black tracking-tighter uppercase mb-6 ${isDark ? 'text-white' : 'text-black'}`}>
+          {t.nav.projects}.
+        </h2>
+        <p className={`mt-4 text-base sm:text-lg max-w-2xl font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+          Selected works, experiments, and professional projects.
+        </p>
       </div>
 
-      {/* Structured Data for Projects */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "name": "Portfolio Projects",
-          "description": "Collection of web development projects by Mohcine Hasbaoui",
-          "author": {
-            "@type": "Person",
-            "name": "Mohcine Hasbaoui",
-            "url": "https://hasbaoui.uk"
-          },
-          "numberOfItems": projects.length,
-          "itemListElement": projects.map((project, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "item": {
-              "@type": "SoftwareApplication",
-              "name": project.title,
-              "description": project.description,
-              "url": project.demo,
-              "applicationCategory": "WebApplication",
-              "operatingSystem": "Web Browser",
-              "author": {
-                "@type": "Person",
-                "name": "Mohcine Hasbaoui"
-              },
-              "programmingLanguage": project.tags.join(", "),
-              "screenshot": `https://hasbaoui.uk${project.image}`
-            }
-          }))
-        })}
-      </script>
-
-      <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
           <div
             key={i}
             ref={el => cardsRef.current[i] = el}
-            className={`group rounded-xl overflow-hidden flex flex-col h-full transition-colors ${
+            className={`group relative overflow-hidden rounded-none border-2 border transition-all duration-300 flex flex-col ${
               isDark 
-                ? 'bg-gray-800/50 border border-gray-700/50 hover:border-gray-600' 
-                : 'bg-white border border-gray-200 hover:border-gray-300 shadow-sm'
+                ? 'bg-black border-gray-800 hover:border-gray-600 shadow-[inset_0_1px_rgba(255,255,255,0.05)]' 
+                : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xl shadow-[0_10px_30px_rgba(0,0,0,0.2)]'
             }`}
           >
-            {/* Project Image - Clickable */}
+            {/* Image Wrap */}
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-40 sm:h-48 md:h-52 overflow-hidden block cursor-pointer"
+              className={`block relative aspect-[4/3] w-full overflow-hidden border-b ${isDark ? 'border-gray-800' : 'border-gray-200 bg-gray-50'}`}
             >
               <img
                 src={project.image}
-                alt={`Screenshot of ${project.title}`}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                alt={project.title}
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 loading={i < 3 ? "eager" : "lazy"}
               />
+              <div className="absolute inset-0 bg-black/10 duration-300 group-hover:opacity-0"></div>
             </a>
 
-            {/* Project Details */}
-            <div className="p-4 sm:p-6 flex flex-col flex-grow">
-              <h3 className={`text-lg sm:text-xl font-semibold mb-2 sm:mb-3 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>{project.title}</h3>
-              <p className={`text-sm sm:text-base mb-4 sm:mb-5 line-clamp-2 flex-grow ${isDark ? 'text-gray-500' : 'text-gray-500'}`}>{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                {project.tags.slice(0, 4).map((tag, i) => (
+            {/* Content Wrap */}
+            <div className="p-6 sm:p-8 flex flex-col flex-grow">
+              <h3 className={`text-xl font-bold tracking-tight mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
+                {project.title}
+              </h3>
+              <p className={`text-sm sm:text-base leading-relaxed mb-6 flex-grow ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                {project.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2 mb-8">
+                {project.tags.slice(0, 3).map((tag, idx) => (
                   <span
-                    key={i}
-                    className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
+                    key={idx}
+                    className={`px-3 py-1 rounded-none text-xs font-bold tracking-wide transition-colors ${
                       isDark 
-                        ? 'bg-gray-900/50 border border-gray-700/50 text-gray-400' 
-                        : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        ? 'bg-gray-900 border border-gray-800 text-gray-400 group-hover:border-gray-700' 
+                        : 'bg-gray-100/80 border border-transparent text-gray-600 group-hover:border-gray-200'
                     }`}
                   >
                     {tag}
                   </span>
                 ))}
-                {project.tags.length > 4 && (
-                  <span className={`text-xs sm:text-sm py-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>+{project.tags.length - 4}</span>
-                )}
               </div>
-              <div className="flex gap-4 sm:gap-6 mt-auto">
+
+              {/* Links */}
+              <div className="flex gap-4 mt-auto">
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-1 inline-flex justify-center items-center py-2.5 rounded-none border-2 text-sm font-bold transition-all ${
+                    isDark ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'
+                  }`}
+                >
+                  Visit site
+                </a>
                 {project.code && (
                   <a
                     href={project.code}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`hover:text-rose-500 transition-colors font-medium flex items-center gap-2 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                    className={`inline-flex justify-center items-center px-4 rounded-none border-2 text-sm transition-all border ${
+                      isDark ? 'border-gray-800 text-gray-300 hover:bg-gray-800 hover:text-white hover:border-gray-700' : 'border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-black hover:border-gray-400'
+                    }`}
+                    aria-label="View Source Code"
                   >
-                    <FontAwesomeIcon icon={faGithub} className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {t.projects.code}
+                    <FontAwesomeIcon icon={faGithub} className="text-lg" />
                   </a>
                 )}
               </div>
@@ -216,9 +187,6 @@ const Projects = () => {
           </div>
         ))}
       </div>
-      <p className={`text-center mt-10 sm:mt-16 text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-        {t.projects.more}
-      </p>
     </section>
   );
 };
